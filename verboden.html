@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Verboden te zeggen – leven op een domein</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    header {
+      padding: 1.5rem 1rem 1.1rem 1rem;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: white;
+    }
+
+    header h1 {
+      margin: 0 0 .4rem 0;
+      font-size: 1.7rem;
+    }
+
+    header p {
+      margin: 0;
+      font-size: .95rem;
+      max-width: 900px;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.3rem 1rem 2rem 1rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1rem 1.1rem;
+      box-shadow: 0 4px 10px rgba(15,23,42,.08);
+      border: 1px solid #e5e7eb;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.05rem;
+    }
+
+    .intro {
+      margin-bottom: 1rem;
+      font-size: .95rem;
+    }
+
+    .intro ul {
+      margin-top: .3rem;
+      padding-left: 1.2rem;
+    }
+
+    .intro li {
+      margin-bottom: .15rem;
+    }
+
+    .game-card {
+      background: #0f172a;
+      color: white;
+      border-radius: 1rem;
+      padding: 1.2rem 1.3rem;
+      box-shadow: inset 0 0 0 1px rgba(148,163,184,.5);
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(56,189,248,.12), transparent 55%);
+      pointer-events: none;
+    }
+
+    .game-card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .label {
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      color: #a5b4fc;
+      margin-bottom: .2rem;
+      font-weight: 600;
+    }
+
+    .term {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: .1rem 0 .5rem 0;
+    }
+
+    .forbidden-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+    }
+
+    .forbidden-list li {
+      font-size: .85rem;
+      padding: .15rem .5rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,.85);
+      border: 1px solid rgba(148,163,184,.7);
+      color: #e5e7eb;
+      white-space: nowrap;
+    }
+
+    .empty-state {
+      font-size: .9rem;
+      color: #e5e7eb;
+    }
+
+    .controls {
+      margin-top: .8rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: none;
+      padding: .45rem 1rem;
+      font-size: .9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: #0f172a;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.05);
+    }
+
+    .btn-ghost {
+      background: white;
+      color: #111827;
+      border: 1px solid #d1d5db;
+    }
+
+    .btn-ghost:hover {
+      background: #f3f4f6;
+    }
+
+    .timer-display {
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-align: center;
+      margin: .4rem 0 .3rem 0;
+    }
+
+    .timer-label {
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #6b7280;
+      text-align: center;
+    }
+
+    .teams {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .7rem;
+      margin-top: .6rem;
+      font-size: .9rem;
+    }
+
+    .team-card {
+      border-radius: .75rem;
+      border: 1px solid #e5e7eb;
+      padding: .5rem .7rem .6rem;
+      background: #f9fafb;
+      display: flex;
+      flex-direction: column;
+      gap: .15rem;
+    }
+
+    .team-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .3rem;
+    }
+
+    .team-name {
+      font-weight: 600;
+    }
+
+    .score {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .team-radio {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      font-size: .8rem;
+      color: #4b5563;
+    }
+
+    .small-note {
+      font-size: .8rem;
+      color: #6b7280;
+      margin-top: .4rem;
+    }
+
+    .rule-list {
+      font-size: .88rem;
+      padding-left: 1.1rem;
+    }
+
+    .rule-list li {
+      margin-bottom: .15rem;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Verboden te zeggen – leven op een domein</h1>
+  <p>
+    Een spel zoals “30 Seconds”: leg het begrip uit zonder de verboden woorden te gebruiken. Je klasgenoot / team moet
+    het begrip raden binnen 30 seconden.
+  </p>
+</header>
+
+<main>
+  <section class="intro card">
+    <h2>Spelregels (in het kort)</h2>
+    <ul class="rule-list">
+      <li>Speel in teams (bijvoorbeeld Team A en Team B).</li>
+      <li>Kies welk team aan de beurt is. Klik op <strong>“Nieuwe kaart”</strong>.</li>
+      <li>De “uitlegger” ziet het <strong>begrip</strong> en de <strong>verboden woorden</strong>.</li>
+      <li>Klik op <strong>“Start 30 seconden”</strong> en leg het begrip uit zonder die woorden te gebruiken.</li>
+      <li>Raadt het team het begrip binnen de tijd? Klik dan op <strong>“Punt voor dit team”</strong>.</li>
+      <li>Daarna is het andere team aan de beurt.</li>
+    </ul>
+    <p class="small-note">
+      Tip: zet het scherm zo neer dat vooral de uitlegger het ziet, of laat de uitlegger zelf achter het scherm zitten.
+    </p>
+  </section>
+
+  <section class="layout">
+    <!-- Kaart + knoppen -->
+    <article class="card">
+      <h2>Kaart</h2>
+
+      <div class="game-card" id="gameCard">
+        <div class="game-card-content">
+          <div class="label">Begrip</div>
+          <div class="term" id="termDisplay">Klik op “Nieuwe kaart”</div>
+          <div class="label" style="margin-top:.3rem;">Verboden te zeggen</div>
+          <ul class="forbidden-list" id="forbiddenList">
+            <li>land</li>
+            <li>heer</li>
+            <li>boer</li>
+          </ul>
+          <p class="empty-state" id="emptyState" style="display:none;">
+            Nog geen kaart geselecteerd. Klik op <strong>“Nieuwe kaart”</strong> om te beginnen.
+          </p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-primary" id="newCardBtn">🃏 Nieuwe kaart</button>
+        <button class="btn btn-ghost" id="reshuffleBtn">🔁 Schud alle kaarten opnieuw</button>
+      </div>
+
+      <p class="small-note">
+        De kaarten zijn speciaal gemaakt voor het onderwerp <strong>leven op een domein</strong> (tijd van monniken en ridders).
+      </p>
+    </article>
+
+    <!-- Timer + teams -->
+    <article class="card">
+      <h2>Tijd & teams</h2>
+
+      <div class="timer-label">Ronde-timer</div>
+      <div class="timer-display" id="timerDisplay">30</div>
+      <div class="controls">
+        <button class="btn btn-primary" id="startTimerBtn">▶ Start 30 seconden</button>
+        <button class="btn btn-ghost" id="stopTimerBtn">⏸ Stop</button>
+        <button class="btn btn-ghost" id="resetTimerBtn">⟲ Reset</button>
+      </div>
+
+      <div class="teams">
+        <div class="team-card">
+          <div class="team-header">
+            <span class="team-name">Team A</span>
+            <span class="score" id="scoreA">0</span>
+          </div>
+          <label class="team-radio">
+            <input type="radio" name="currentTeam" value="A" checked>
+            Aan de beurt
+          </label>
+        </div>
+        <div class="team-card">
+          <div class="team-header">
+            <span class="team-name">Team B</span>
+            <span class="score" id="scoreB">0</span>
+          </div>
+          <label class="team-radio">
+            <input type="radio" name="currentTeam" value="B">
+            Aan de beurt
+          </label>
+        </div>
+      </div>
+
+      <div class="controls" style="margin-top:.7rem;">
+        <button class="btn btn-primary" id="pointBtn">✅ Punt voor dit team</button>
+      </div>
+
+      <p class="small-note">
+        Kies eerst welk team aan de beurt is. Als het begrip goed geraden is, klik je op <strong>“Punt voor dit team”</strong>.
+      </p>
+    </article>
+  </section>
+</main>
+
+<script>
+  // Kaarten: begrippen + verboden woorden (leven op een domein)
+  const cards = [
+    {
+      term: "domein",
+      forbidden: ["land", "groot", "heer", "boerderijen", "alles bij elkaar"]
+    },
+    {
+      term: "heer",
+      forbidden: ["baas", "ridder", "eigenaar", "land", "straffen"]
+    },
+    {
+      term: "horige",
+      forbidden: ["boer", "niet vrij", "weggaan", "domein", "toestemming"]
+    },
+    {
+      term: "herendiensten",
+      forbidden: ["werken", "dagen", "land van de heer", "gratis", "oogst"]
+    },
+    {
+      term: "pacht",
+      forbidden: ["betalen", "deel van de oogst", "heer", "graan", "kippen"]
+    },
+    {
+      term: "tienden",
+      forbidden: ["klooster", "God", "een tiende", "oogst", "geven"]
+    },
+    {
+      term: "klooster",
+      forbidden: ["monniken", "bidden", "kerk", "God", "tienden"]
+    },
+    {
+      term: "molen",
+      forbidden: ["malen", "graan", "meel", "water", "molenaar"]
+    },
+    {
+      term: "ridder",
+      forbidden: ["paard", "zwaard", "vechten", "beschermen", "adel"]
+    },
+    {
+      term: "bescherming",
+      forbidden: ["veilig", "vijanden", "rovers", "palissade", "schuilen"]
+    }
+  ];
+
+  let deck = [];
+  let currentIndex = 0;
+
+  const termDisplay = document.getElementById("termDisplay");
+  const forbiddenList = document.getElementById("forbiddenList");
+  const emptyState = document.getElementById("emptyState");
+  const newCardBtn = document.getElementById("newCardBtn");
+  const reshuffleBtn = document.getElementById("reshuffleBtn");
+
+  function shuffle(array) {
+    const arr = array.slice();
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function initDeck() {
+    deck = shuffle(cards);
+    currentIndex = 0;
+  }
+
+  function showCard() {
+    if (deck.length === 0 || currentIndex >= deck.length) {
+      initDeck();
+    }
+    const card = deck[currentIndex];
+    currentIndex++;
+
+    termDisplay.textContent = card.term;
+    forbiddenList.innerHTML = "";
+    card.forbidden.forEach(word => {
+      const li = document.createElement("li");
+      li.textContent = word;
+      forbiddenList.appendChild(li);
+    });
+    emptyState.style.display = "none";
+  }
+
+  newCardBtn.addEventListener("click", showCard);
+  reshuffleBtn.addEventListener("click", () => {
+    initDeck();
+    termDisplay.textContent = "Kaarten geschud – klik op “Nieuwe kaart”";
+    forbiddenList.innerHTML = "";
+    emptyState.style.display = "block";
+  });
+
+  // Timer
+  const timerDisplay = document.getElementById("timerDisplay");
+  const startTimerBtn = document.getElementById("startTimerBtn");
+  const stopTimerBtn = document.getElementById("stopTimerBtn");
+  const resetTimerBtn = document.getElementById("resetTimerBtn");
+
+  let timer = null;
+  let timeLeft = 30;
+
+  function updateTimerDisplay() {
+    timerDisplay.textContent = timeLeft.toString();
+  }
+
+  function startTimer() {
+    if (timer !== null) return;
+    timer = setInterval(() => {
+      timeLeft--;
+      if (timeLeft <= 0) {
+        timeLeft = 0;
+        clearInterval(timer);
+        timer = null;
+      }
+      updateTimerDisplay();
+    }, 1000);
+  }
+
+  function stopTimer() {
+    if (timer !== null) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }
+
+  function resetTimer() {
+    stopTimer();
+    timeLeft = 30;
+    updateTimerDisplay();
+  }
+
+  startTimerBtn.addEventListener("click", startTimer);
+  stopTimerBtn.addEventListener("click", stopTimer);
+  resetTimerBtn.addEventListener("click", resetTimer);
+
+  // Scores
+  const scoreAEl = document.getElementById("scoreA");
+  const scoreBEl = document.getElementById("scoreB");
+  const pointBtn = document.getElementById("pointBtn");
+  let scoreA = 0;
+  let scoreB = 0;
+
+  pointBtn.addEventListener("click", () => {
+    const currentTeam = document.querySelector('input[name="currentTeam"]:checked')?.value || "A";
+    if (currentTeam === "A") {
+      scoreA++;
+      scoreAEl.textContent = scoreA.toString();
+    } else {
+      scoreB++;
+      scoreBEl.textContent = scoreB.toString();
+    }
+  });
+
+  // Starttoestand
+  initDeck();
+  // Lege kaart tonen
+  termDisplay.textContent = "Klik op “Nieuwe kaart”";
+  forbiddenList.innerHTML = "";
+  emptyState.style.display = "block";
+  updateTimerDisplay();
+</script>
+</body>
+</html>

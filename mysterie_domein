@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Mysterie: de verdwenen boer Hendrik</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f3f3f7;
+    }
+
+    header {
+      padding: 1.5rem 1rem;
+      background: #263043;
+      color: white;
+    }
+
+    header h1 {
+      margin: 0 0 .4rem 0;
+      font-size: 1.5rem;
+    }
+
+    header p {
+      margin: 0;
+      font-size: .95rem;
+      max-width: 900px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .intro {
+      background: white;
+      border-radius: .6rem;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,.05);
+      font-size: .95rem;
+    }
+
+    .layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .column {
+      flex: 1 1 320px;
+      min-width: 0;
+      background: white;
+      border-radius: .6rem;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,.05);
+      max-height: 75vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .column h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+
+    .filters {
+      margin-bottom: .5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+    }
+
+    .filters button {
+      border: none;
+      padding: .3rem .7rem;
+      border-radius: 999px;
+      background: #e0e4ee;
+      font-size: .8rem;
+      cursor: pointer;
+    }
+
+    .filters button.active {
+      background: #263043;
+      color: white;
+    }
+
+    .cards {
+      overflow-y: auto;
+      padding-right: .3rem;
+      display: grid;
+      gap: .5rem;
+    }
+
+    .card {
+      background: #f9fafc;
+      border-radius: .5rem;
+      padding: .6rem .7rem;
+      border: 1px solid #dde1ec;
+      cursor: pointer;
+      font-size: .9rem;
+      transition: background .15s, transform .1s, box-shadow .1s, border-color .15s;
+    }
+
+    .card:hover {
+      background: #eef1fb;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(0,0,0,.06);
+    }
+
+    .card.selected {
+      border-color: #263043;
+      background: #e2e7ff;
+      box-shadow: 0 0 0 1px #263043;
+    }
+
+    .card small {
+      display: block;
+      font-size: .7rem;
+      color: #6b7280;
+      margin-bottom: .2rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .explanation {
+      margin-top: .8rem;
+    }
+
+    .explanation label {
+      font-size: .9rem;
+      font-weight: 600;
+    }
+
+    .explanation textarea {
+      width: 100%;
+      min-height: 140px;
+      margin-top: .3rem;
+      font-family: inherit;
+      font-size: .9rem;
+      padding: .5rem;
+      border-radius: .5rem;
+      border: 1px solid #cdd2e4;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+
+    .hint {
+      font-size: .75rem;
+      color: #6b7280;
+      margin-top: .2rem;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        text-align: left;
+      }
+      .column {
+        max-height: none;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Mysterie: de verdwenen boer Hendrik</h1>
+  <p>
+    Lees de kaartjes over het leven op het domein Eikenrode. Klik op de kaartjes die jij belangrijk bewijs
+    vindt. Ze verschijnen dan rechts. Schrijf daarna onderaan jullie uitleg: waarom is Hendrik verdwenen?
+  </p>
+</header>
+
+<main>
+  <section class="intro">
+    <p><strong>Centrale vraag:</strong> Waarom is de horige boer Hendrik verdwenen van het domein van heer Adalbert?</p>
+    <p style="margin-top:.4rem;">
+      Werkwijze in duo’s:
+    </p>
+    <ol style="margin-top:.2rem;padding-left:1.3rem;">
+      <li>Lees alle kaartjes aan de linkerkant.</li>
+      <li>Klik de kaartjes aan die volgens jullie belangrijk zijn (ze worden blauw).</li>
+      <li>Bekijk rechts welke bewijzen jullie gekozen hebben.</li>
+      <li>Schrijf onderaan jullie uitleg met verwijzing naar minstens 5 kaartjes.</li>
+    </ol>
+  </section>
+
+  <section class="layout">
+    <!-- Linkerkolom: alle kaartjes -->
+    <div class="column">
+      <h2>Alle kaartjes</h2>
+
+      <div class="filters">
+        <button class="filter-btn active" data-filter="alle">Alle</button>
+        <button class="filter-btn" data-filter="leven">Leven & werk</button>
+        <button class="filter-btn" data-filter="heer">Heer & macht</button>
+        <button class="filter-btn" data-filter="klooster">Klooster</button>
+        <button class="filter-btn" data-filter="problemen">Problemen Hendrik</button>
+      </div>
+
+      <div class="cards" id="allCards">
+        <!-- Kaartjes beginnen hier -->
+        <div class="card" data-id="1" data-category="heer">
+          <small>Kaartje 1 · Heer Adalbert</small>
+          Heer Adalbert is de eigenaar van bijna al het land op domein Eikenrode. Hij is een ridder die de koning
+          helpt in de oorlog en heeft het domein als beloning gekregen. Hij woont in een groot huis op een heuvel
+          en kan de boerderijen van de boeren goed overzien.
+        </div>
+
+        <div class="card" data-id="2" data-category="leven">
+          <small>Kaartje 2 · Hendrik de boer</small>
+          Hendrik is een horige boer. Hij werkt op een kleine boerderij met een stuk land dat hij mag gebruiken,
+          maar het land is niet van hem. Hij mag het domein niet zomaar verlaten en heeft daarvoor toestemming van
+          de heer nodig.
+        </div>
+
+        <div class="card" data-id="3" data-category="leven">
+          <small>Kaartje 3 · Herendiensten</small>
+          Elke week moet Hendrik drie dagen op het land van de heer werken. Dit heet herendiensten. De opbrengst
+          van dat werk is volledig voor de heer. Alleen op de andere dagen kan Hendrik aan zijn eigen land en gezin
+          denken.
+        </div>
+
+        <div class="card" data-id="4" data-category="leven">
+          <small>Kaartje 4 · Pacht</small>
+          Op zijn eigen stukje land verbouwt Hendrik graan en groente voor zijn gezin. Toch moet hij een deel van
+          zijn oogst als pacht aan de heer afstaan. Hij betaalt met graan, eieren en soms een kip, waardoor er
+          soms weinig overblijft voor zijn familie.
+        </div>
+
+        <div class="card" data-id="5" data-category="klooster">
+          <small>Kaartje 5 · Klooster in de buurt</small>
+          Vlak bij het domein ligt een klein klooster. De monniken bidden voor de zielen van de heer en de boeren
+          en leren soms jongens lezen en schrijven. Ze eisen ook tienden: een tiende deel van de oogst voor God.
+        </div>
+
+        <div class="card" data-id="6" data-category="klooster">
+          <small>Kaartje 6 · Tienden</small>
+          In de schuren van het klooster liggen grote stapels graan en kazen. Die komen van de tienden die de
+          boeren moeten betalen. Eerst moeten ze leveren aan de heer en daarna aan het klooster. Hendrik moppert
+          soms dat God wel erg veel eet.
+        </div>
+
+        <div class="card" data-id="7" data-category="problemen">
+          <small>Kaartje 7 · Slechte oogst</small>
+          Vorig jaar was de oogst heel slecht. Het regende op het verkeerde moment en een deel van het graan is
+          verrot. Hendrik heeft moeite om zijn gezin genoeg eten te geven, maar de heer wil toch net zoveel pacht
+          als in een goed jaar.
+        </div>
+
+        <div class="card" data-id="8" data-category="problemen">
+          <small>Kaartje 8 · Marta maakt zich zorgen</small>
+          De vrouw van Hendrik, Marta, is bang dat er in de winter niet genoeg eten is en dat de kinderen ziek
+          worden. Ze wil dat Hendrik de heer om uitstel van pacht vraagt, maar Hendrik durft dat niet omdat de heer
+          erg streng is.
+        </div>
+
+        <div class="card" data-id="9" data-category="heer">
+          <small>Kaartje 9 · Rechtspraak op het domein</small>
+          Heer Adalbert is ook de rechter op zijn domein. Boeren die stelen, weigeren te werken of vluchten krijgen
+          een zware straf. Soms moeten ze hoge boetes betalen, soms worden ze publiekelijk vernederd of geslagen.
+        </div>
+
+        <div class="card" data-id="10" data-category="heer">
+          <small>Kaartje 10 · Gevaar en bescherming</small>
+          In de omgeving trekken soms roversbendes rond die boerderijen plunderen. De heer heeft gewapende ridders
+          in dienst. In tijden van gevaar mogen de boeren achter de houten palissade bij het huis van de heer
+          schuilen. Zonder deze bescherming zouden ze kwetsbaarder zijn.
+        </div>
+
+        <div class="card" data-id="11" data-category="heer">
+          <small>Kaartje 11 · De molen</small>
+          Op het domein staat een molen die van de heer is. Alle boeren zijn verplicht daar hun graan te laten
+          malen. De molenaar houdt een deel van het meel achter voor de heer. Hendrik heeft het gevoel dat hij bij
+          de pacht, de tienden en ook bij de molen steeds iets inlevert.
+        </div>
+
+        <div class="card" data-id="12" data-category="problemen">
+          <small>Kaartje 12 · Neef uit het noorden</small>
+          Eens per jaar komt de neef van Hendrik op bezoek. Hij vertelt dat de heer op zijn domein minder streng
+          is en dat de herendiensten daar korter zijn. Sommige boeren zijn er bijna vrij. Deze verhalen laten
+          Hendrik niet meer los.
+        </div>
+
+        <div class="card" data-id="13" data-category="problemen">
+          <small>Kaartje 13 · Schulden</small>
+          Door de slechte oogst had Hendrik te weinig graan om opnieuw te zaaien. Hij heeft graan geleend van de
+          heer. De rentmeester zegt dat hij dat met rente moet terugbetalen, waardoor Hendrik volgend jaar nog
+          meer moet afstaan en hij bang is nooit uit de schulden te komen.
+        </div>
+
+        <div class="card" data-id="14" data-category="klooster">
+          <small>Kaartje 14 · Gesprek met een monnik</small>
+          Een jonge monnik uit het klooster zegt dat Hendrik op God moet vertrouwen en gehoorzaam moet blijven.
+          Wie zijn plichten vervult, krijgt later in de hemel een beloning. Hendrik luistert, maar denkt aan de
+          honger van zijn kinderen en twijfelt of dat genoeg is.
+        </div>
+
+        <div class="card" data-id="15" data-category="problemen">
+          <small>Kaartje 15 · Een eerdere vluchteling</small>
+          Vorig jaar is er al eens een boer van het domein gevlucht. De ridders vonden hem terug op een markt in
+          een stad verderop. Hij werd vastgebonden teruggebracht en zwaar gestraft, voor de ogen van alle boeren.
+          Iedereen weet dat vluchten gevaarlijk is.
+        </div>
+
+        <div class="card" data-id="16" data-category="problemen">
+          <small>Kaartje 16 · De lege bedstee</small>
+          Op een vroege ochtend ontdekt Marta dat het bed van Hendrik leeg is. Zijn beste schoenen en mantel zijn
+          verdwenen. Er zijn geen tekenen van een gevecht. Het lijkt erop dat Hendrik bewust en in stilte is
+          vertrokken, nog voor de zon opkwam.
+        </div>
+        <!-- Kaartjes eindigen hier -->
+      </div>
+    </div>
+
+    <!-- Rechterkolom: gekozen kaartjes + uitleg -->
+    <div class="column">
+      <h2>Gekozen bewijsteksten</h2>
+      <p style="font-size:.85rem;margin-top:-.3rem;margin-bottom:.5rem;">
+        Kaartjes waarop je klikt verschijnen hier. Gebruik minstens 5 kaartjes als bewijs in jullie uitleg.
+      </p>
+      <div class="cards" id="selectedCards">
+        <p style="font-size:.85rem;color:#6b7280;margin:0;">
+          Nog geen kaartjes geselecteerd. Klik links op een kaartje om het hier als bewijs te laten verschijnen.
+        </p>
+      </div>
+
+      <div class="explanation">
+        <label for="uitleg">Onze uitleg (antwoord op de centrale vraag)</label>
+        <textarea id="uitleg" placeholder="Schrijf hier in 6–10 zinnen waarom Hendrik volgens jullie is verdwenen van het domein. Verwijs in de tekst naar de kaartjes (bijvoorbeeld: ‘zoals je ziet op kaartje 7 …’)."></textarea>
+        <div class="hint">
+          Tip: kopieer jullie tekst en plak hem in Magister / Teams / Google Classroom om hem bij de docent in te leveren.
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // Filterknoppen
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const allCardsContainer = document.getElementById('allCards');
+  const cards = allCardsContainer.querySelectorAll('.card');
+  const selectedContainer = document.getElementById('selectedCards');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      cards.forEach(card => {
+        const cat = card.dataset.category;
+        if (filter === 'alle' || cat === filter) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  function updateSelectedPlaceholder() {
+    if (selectedContainer.querySelectorAll('.card').length === 0) {
+      selectedContainer.innerHTML =
+        '<p style="font-size:.85rem;color:#6b7280;margin:0;">Nog geen kaartjes geselecteerd. Klik links op een kaartje om het hier als bewijs te laten verschijnen.</p>';
+    }
+  }
+
+  updateSelectedPlaceholder();
+
+  // Kaartjes selecteren / deselecteren
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.id;
+      const alreadySelected = card.classList.contains('selected');
+
+      if (alreadySelected) {
+        card.classList.remove('selected');
+        const toRemove = selectedContainer.querySelector('.card[data-id="' + id + '"]');
+        if (toRemove) {
+          toRemove.remove();
+        }
+        updateSelectedPlaceholder();
+      } else {
+        card.classList.add('selected');
+        if (selectedContainer.querySelector('p')) {
+          selectedContainer.innerHTML = '';
+        }
+        const clone = card.cloneNode(true);
+        clone.classList.remove('selected'); // in de rechterkolom alleen leesbaar
+        selectedContainer.appendChild(clone);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

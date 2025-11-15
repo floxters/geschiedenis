@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Mysterie: de dood van Graaf Willem</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f3f3f7;
+    }
+
+    header {
+      padding: 1.5rem 1rem;
+      background: #263043;
+      color: white;
+    }
+
+    header h1 {
+      margin: 0 0 .4rem 0;
+      font-size: 1.5rem;
+    }
+
+    header p {
+      margin: 0;
+      font-size: .95rem;
+      max-width: 900px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .intro {
+      background: white;
+      border-radius: .6rem;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,.05);
+      font-size: .95rem;
+    }
+
+    .layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .column {
+      flex: 1 1 320px;
+      min-width: 0;
+      background: white;
+      border-radius: .6rem;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,.05);
+      max-height: 75vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .column h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+
+    .filters {
+      margin-bottom: .5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+    }
+
+    .filters button {
+      border: none;
+      padding: .3rem .7rem;
+      border-radius: 999px;
+      background: #e0e4ee;
+      font-size: .8rem;
+      cursor: pointer;
+    }
+
+    .filters button.active {
+      background: #263043;
+      color: white;
+    }
+
+    .cards {
+      overflow-y: auto;
+      padding-right: .3rem;
+      display: grid;
+      gap: .5rem;
+    }
+
+    .card {
+      background: #f9fafc;
+      border-radius: .5rem;
+      padding: .6rem .7rem;
+      border: 1px solid #dde1ec;
+      cursor: pointer;
+      font-size: .9rem;
+      transition: background .15s, transform .1s, box-shadow .1s, border-color .15s;
+    }
+
+    .card:hover {
+      background: #eef1fb;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(0,0,0,.06);
+    }
+
+    .card.selected {
+      border-color: #263043;
+      background: #e2e7ff;
+      box-shadow: 0 0 0 1px #263043;
+    }
+
+    .card small {
+      display: block;
+      font-size: .7rem;
+      color: #6b7280;
+      margin-bottom: .2rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .explanation {
+      margin-top: .8rem;
+    }
+
+    .explanation label {
+      font-size: .9rem;
+      font-weight: 600;
+    }
+
+    .explanation textarea {
+      width: 100%;
+      min-height: 160px;
+      margin-top: .3rem;
+      font-family: inherit;
+      font-size: .9rem;
+      padding: .5rem;
+      border-radius: .5rem;
+      border: 1px solid #cdd2e4;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+
+    .hint {
+      font-size: .75rem;
+      color: #6b7280;
+      margin-top: .2rem;
+    }
+
+    @media (max-width: 700px) {
+      .column {
+        max-height: none;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Mysterie: de dood van Graaf Willem</h1>
+  <p>
+    Het is rond 1189, bij Zutphen. Horige boer Dirk loopt ’s ochtends vroeg de stal in. Daar vindt hij zijn heer,
+    Graaf Willem, hangend aan een touw. Is het zelfmoord, of is hij vermoord? Met de kaartjes ga je het mysterie
+    proberen op te lossen.
+  </p>
+</header>
+
+<main>
+  <section class="intro">
+    <p>
+      <strong>Centrale vragen:</strong>
+    </p>
+    <ul>
+      <li><strong>Door wie</strong> is Graaf Willem volgens jullie vermoord?</li>
+      <li><strong>Wat was de reden</strong> voor die moord?</li>
+    </ul>
+    <p style="margin-top:.4rem;">
+      Werkwijze in duo’s:
+    </p>
+    <ol style="margin-top:.2rem;padding-left:1.3rem;">
+      <li>Lees alle kaartjes aan de linkerkant.</li>
+      <li>Klik op kaartjes die volgens jullie belangrijk bewijs zijn (ze kleuren blauw).</li>
+      <li>Bekijk rechts jullie gekozen bewijsteksten.</li>
+      <li>Schrijf onderaan jullie uitleg. Verwijs naar de kaartjes (bijv. “op kaartje 7…”).</li>
+    </ol>
+  </section>
+
+  <section class="layout">
+    <!-- Linkerkolom: alle kaartjes -->
+    <div class="column">
+      <h2>Alle kaartjes</h2>
+
+      <div class="filters">
+        <button class="filter-btn active" data-filter="alle">Alle</button>
+        <button class="filter-btn" data-filter="adel">Adel & erfopvolging</button>
+        <button class="filter-btn" data-filter="boeren">Boeren & horigen</button>
+        <button class="filter-btn" data-filter="landbouw">Landbouw & vernieuwingen</button>
+        <button class="filter-btn" data-filter="stad">Stad & stadsrechten</button>
+        <button class="filter-btn" data-filter="kerk">Kerk</button>
+        <button class="filter-btn" data-filter="handel">Handel & markten</button>
+      </div>
+
+      <div class="cards" id="allCards">
+        <!-- Kaartjes beginnen hier -->
+        <div class="card" data-id="1" data-category="landbouw">
+          <small>Kaartje 1 · Gravin Charlotte</small>
+          Door een nieuw akkersysteem met drie delen kan er meer graan worden verbouwd. Daardoor komt er meer
+          voedsel en groeit de bevolking in het gebied van Graaf Willem.
+        </div>
+
+        <div class="card" data-id="2" data-category="boeren">
+          <small>Kaartje 2 · Boer Dirk</small>
+          Ik werk op het land van Graaf Willem, omdat het buiten het domein gevaarlijk is. In ruil voor zijn
+          bescherming bewerk ik zijn grond en volg ik zijn regels.
+        </div>
+
+        <div class="card" data-id="3" data-category="landbouw">
+          <small>Kaartje 3 · Vrije boer Frans</small>
+          Met betere ploegen en een halsjuk kunnen de dieren zwaarder werk doen. Daardoor heb ik soms graan over
+          en dat overschot kan ik verkopen op de markt in de stad.
+        </div>
+
+        <div class="card" data-id="4" data-category="boeren">
+          <small>Kaartje 4 · Boer Dirk</small>
+          Wij boeren krijgen bescherming van de graaf als er gevaar is. In ruil daarvoor moeten we op zijn land
+          werken en herendiensten doen, ook als we zelf al moe zijn.
+        </div>
+
+        <div class="card" data-id="5" data-category="adel">
+          <small>Kaartje 5 · Otto, oudste zoon</small>
+          Nu mijn vader dood is, vind ik dat het kasteel, het land en de oogst allemaal van mij zijn. Ik ben de
+          oudste zoon en ik zie alles als mijn eigendom.
+        </div>
+
+        <div class="card" data-id="6" data-category="stad">
+          <small>Kaartje 6 · Schout Floris</small>
+          Ik ben ervan overtuigd dat de bestuurders van de stad straks meer macht krijgen dan de edelen. Zeker
+          wanneer we stadsrechten weten te krijgen, verandert de machtsverhouding.
+        </div>
+
+        <div class="card" data-id="7" data-category="boeren">
+          <small>Kaartje 7 · Horige boer Frederik</small>
+          Voor horige boeren wordt het leven steeds zwaarder. De graaf wil steeds meer diensten en meer belasting.
+          Het is moeilijk om ons gezin nog goed te onderhouden.
+        </div>
+
+        <div class="card" data-id="8" data-category="kerk">
+          <small>Kaartje 8 · Bisschop Baldewin II</small>
+          In het christelijk geloof is zelfmoord een zware zonde. Iemand die zichzelf doodt, mag niet op het
+          kerkhof worden begraven en zijn familie kan als vervloekt worden gezien.
+        </div>
+
+        <div class="card" data-id="9" data-category="stad">
+          <small>Kaartje 9 · Schout Floris</small>
+          Ik heb vaak gevraagd of we stadsrechten mogen kopen, maar Graaf Willem weigerde steeds. Zijn zoon Otto
+          zegt wél met ons te willen onderhandelen en misschien rechten te verkopen.
+        </div>
+
+        <div class="card" data-id="10" data-category="boeren">
+          <small>Kaartje 10 · Boer Dirk</small>
+          Otto, de zoon van de graaf, vertelt ons dat hij later een betere toekomst voor de boeren wil. Ik twijfel
+          of hij dat echt meent of dat hij ons alleen rustig wil houden.
+        </div>
+
+        <div class="card" data-id="11" data-category="adel">
+          <small>Kaartje 11 · Edelman Guido</small>
+          Heren van kastelen waren vaak graaf, hertog of baron. Deze edelen bezaten veel grond en hielden zich
+          bezig met besturen, rechtspreken en oorlog voeren in hun gebied.
+        </div>
+
+        <div class="card" data-id="12" data-category="adel">
+          <small>Kaartje 12 · Otto, zoon van Graaf Willem</small>
+          Toen mijn vader nog leefde, gaf hij mij nooit geld, terwijl hij rijk werd van zijn land. Ik had juist
+          geld nodig voor mijn feesten en voor mijn leven in de stad.
+        </div>
+
+        <div class="card" data-id="13" data-category="landbouw">
+          <small>Kaartje 13 · Schepenen van Zutphen</small>
+          Door nieuwe manieren van landbouw zijn er extra producten en meer mensen nodig in andere beroepen.
+          Daardoor ontstaan er nieuwe ambachten en functies, vooral in en rond de steden.
+        </div>
+
+        <div class="card" data-id="14" data-category="adel">
+          <small>Kaartje 14 · Otto, zoon van Graaf Willem</small>
+          Als edelman kon mijn vader Zutphen stadsrechten geven, maar hij deed het niet. Ik wil die rechten wel
+          verkopen, zodat ik geld krijg en de stad officieel kan worden.
+        </div>
+
+        <div class="card" data-id="15" data-category="boeren">
+          <small>Kaartje 15 · Boer Dirk</small>
+          De graaf heeft steeds meer land laten ontginnen. Daardoor moet ik harder en langer werken. Hij neemt
+          geen nieuwe horigen aan, dus wij moeten het extra werk doen.
+        </div>
+
+        <div class="card" data-id="16" data-category="handel">
+          <small>Kaartje 16 · Marskramer Frodo</small>
+          Boeren brengen hun extra graan en andere producten naar markten en stadjes. Daar ruilen ze die tegen
+          spullen van vaklieden, zoals gereedschap en meubels.
+        </div>
+
+        <div class="card" data-id="17" data-category="stad">
+          <small>Kaartje 17 · Schout Floris</small>
+          Ik wil van Zutphen een echte stad maken. Daarvoor hebben we stadsrechten nodig. Die moeten we kopen bij
+          een edelman, zoals Graaf Willem of zijn zoon Otto.
+        </div>
+
+        <div class="card" data-id="18" data-category="landbouw">
+          <small>Kaartje 18 · Boer Dirk</small>
+          Door het drieslagstelsel wordt er veel meer graan verbouwd. De graaf verkoopt dat graan in de stad om
+          zelf rijker te worden. Mijn gezin krijgt er geen extra eten door.
+        </div>
+
+        <div class="card" data-id="19" data-category="stad">
+          <small>Kaartje 19 · Schout Floris</small>
+          Graaf Willem dacht vooral aan zijn eigen voordeel. Hij hield geen rekening met de groei van de stad en
+          met de nieuwe beroepen. Hij bleef bezig met land ontginnen en zijn oude manier van leven.
+        </div>
+
+        <div class="card" data-id="20" data-category="adel">
+          <small>Kaartje 20 · Otto, oudste zoon</small>
+          Omdat ik de oudste zoon ben, vind ik dat ik alles mag erven wat van mijn vader was. Mijn jongere
+          broers krijgen helemaal niets, dat is volgens mij hun probleem.
+        </div>
+
+        <div class="card" data-id="21" data-category="boeren">
+          <small>Kaartje 21 · Boerin Hetty</small>
+          Soms verstoppen we een deel van het graan in de grond bij een boom achter ons huis. Anders hebben we
+          te weinig voor onze twaalf kinderen. Als de graaf dat ontdekt, worden we waarschijnlijk verbannen.
+        </div>
+        <!-- Kaartjes eindigen hier -->
+      </div>
+    </div>
+
+    <!-- Rechterkolom: gekozen kaartjes + uitleg -->
+    <div class="column">
+      <h2>Gekozen bewijsteksten</h2>
+      <p style="font-size:.85rem;margin-top:-.3rem;margin-bottom:.5rem;">
+        Kaartjes waarop je klikt, verschijnen hier. Gebruik minstens 5 kaartjes als bewijs in jullie uitleg.
+      </p>
+      <div class="cards" id="selectedCards">
+        <p style="font-size:.85rem;color:#6b7280;margin:0;">
+          Nog geen kaartjes geselecteerd. Klik links op een kaartje om het hier als bewijs te laten verschijnen.
+        </p>
+      </div>
+
+      <div class="explanation">
+        <label for="uitleg">Onze uitleg (antwoord op de centrale vragen)</label>
+        <textarea id="uitleg"
+          placeholder="Schrijf hier in 8–12 zinnen: door wie is Graaf Willem volgens jullie vermoord en wat was de reden? Verwijs in de tekst naar de kaartjes (bijvoorbeeld: ‘zoals je ziet op kaartje 9 …’)."></textarea>
+        <div class="hint">
+          Tip: kopieer jullie tekst en plak hem in Magister / Teams / Google Classroom om hem bij de docent in te leveren.
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // Filterknoppen
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const allCardsContainer = document.getElementById('allCards');
+  const cards = allCardsContainer.querySelectorAll('.card');
+  const selectedContainer = document.getElementById('selectedCards');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      cards.forEach(card => {
+        const cat = card.dataset.category;
+        if (filter === 'alle' || cat === filter) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  function updateSelectedPlaceholder() {
+    if (selectedContainer.querySelectorAll('.card').length === 0) {
+      selectedContainer.innerHTML =
+        '<p style="font-size:.85rem;color:#6b7280;margin:0;">Nog geen kaartjes geselecteerd. Klik links op een kaartje om het hier als bewijs te laten verschijnen.</p>';
+    }
+  }
+
+  updateSelectedPlaceholder();
+
+  // Kaartjes selecteren / deselecteren
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.id;
+      const alreadySelected = card.classList.contains('selected');
+
+      if (alreadySelected) {
+        card.classList.remove('selected');
+        const toRemove = selectedContainer.querySelector('.card[data-id="' + id + '"]');
+        if (toRemove) {
+          toRemove.remove();
+        }
+        updateSelectedPlaceholder();
+      } else {
+        card.classList.add('selected');
+        if (selectedContainer.querySelector('p')) {
+          selectedContainer.innerHTML = '';
+        }
+        const clone = card.cloneNode(true);
+        clone.classList.remove('selected'); // in de rechterkolom alleen leesbaar
+        selectedContainer.appendChild(clone);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

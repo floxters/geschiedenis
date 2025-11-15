@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Welk woord weg? – Leven op een domein</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f3f3f7;
+    }
+
+    header {
+      padding: 1.5rem 1rem;
+      background: #264653;
+      color: white;
+    }
+
+    header h1 {
+      margin: 0 0 .4rem 0;
+      font-size: 1.6rem;
+    }
+
+    header p {
+      margin: 0;
+      font-size: .95rem;
+      max-width: 800px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .intro {
+      background: white;
+      border-radius: .6rem;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,.05);
+      font-size: .95rem;
+    }
+
+    .question-card {
+      background: white;
+      border-radius: .6rem;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,.06);
+      margin-bottom: 1rem;
+    }
+
+    .question-card h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: .6rem;
+      margin: .8rem 0;
+    }
+
+    .option-btn {
+      border: 1px solid #d0d7e6;
+      background: #f9fafc;
+      border-radius: .5rem;
+      padding: .6rem .8rem;
+      font-size: .95rem;
+      cursor: pointer;
+      text-align: left;
+      transition: background .15s, border-color .15s, transform .1s, box-shadow .1s;
+    }
+
+    .option-btn:hover {
+      background: #eef2ff;
+      border-color: #264653;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(0,0,0,.06);
+    }
+
+    .option-btn.correct {
+      background: #e1f7e7;
+      border-color: #2a9d8f;
+    }
+
+    .option-btn.wrong {
+      background: #fde4e4;
+      border-color: #e76f51;
+    }
+
+    .feedback {
+      font-size: .9rem;
+      margin-top: .5rem;
+    }
+
+    .feedback span.good {
+      color: #2a9d8f;
+      font-weight: 600;
+    }
+
+    .feedback span.bad {
+      color: #e76f51;
+      font-weight: 600;
+    }
+
+    .bottom-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: .6rem;
+      margin-top: .8rem;
+      font-size: .9rem;
+    }
+
+    .score {
+      font-weight: 600;
+    }
+
+    .btn-next {
+      border-radius: 999px;
+      border: none;
+      padding: .45rem 1.1rem;
+      background: #264653;
+      color: white;
+      font-size: .9rem;
+      cursor: pointer;
+    }
+
+    .btn-next:disabled {
+      opacity: .5;
+      cursor: default;
+    }
+
+    .finished {
+      background: white;
+      border-radius: .6rem;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,.06);
+      margin-top: 1rem;
+      font-size: .95rem;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #e0fbfc;
+      color: #264653;
+      font-size: .75rem;
+      padding: .15rem .5rem;
+      border-radius: 999px;
+      margin-left: .4rem;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Welk woord weg? – Leven op een domein</h1>
+  <p>
+    Tijd van monniken en ridders. Bij elke opdracht horen drie woorden duidelijk bij elkaar. Eén woord past er niet goed bij.
+    Klik op het woord dat volgens jou <strong>niet past</strong>.
+  </p>
+</header>
+
+<main>
+  <section class="intro">
+    <p><strong>Opdracht:</strong> Kies bij elke rij woorden welk woord volgens jou “weg moet”. Denk aan het leven op een domein:
+      heer, horigen, klooster, bescherming, enzovoort. Na je keuze krijg je uitleg.</p>
+    <p style="margin-top:.4rem;">
+      Je kunt de oefening in duo’s maken en samen overleggen. Probeer bij elk antwoord ook te zeggen waarom het
+      niet past.
+    </p>
+  </section>
+
+  <section id="quiz"></section>
+
+  <section id="finished" class="finished" style="display:none;">
+    <h2>Klaar!</h2>
+    <p id="finalMessage"></p>
+    <p style="font-size:.85rem;color:#6b7280;">
+      Tip: bespreek met de docent één of twee rijen waar jullie twijfelden. Kun je ook een andere reden bedenken
+      waarom een woord niet past?
+    </p>
+  </section>
+</main>
+
+<script>
+  // Vragen over leven op een domein – vmbo-t, leerjaar 1
+  const questions = [
+    {
+      text: "Welke hoort het minst bij het leven op een domein?",
+      level: "makkelijk",
+      options: ["heer", "horige", "domein", "flatgebouw"],
+      correctIndex: 3,
+      explanation: "Een flatgebouw hoort bij de moderne tijd. De andere woorden gaan over het middeleeuwse domein."
+    },
+    {
+      text: "Welke past niet goed bij de drie andere woorden?",
+      level: "makkelijk",
+      options: ["herendiensten", "pacht", "tienden", "internetbelasting"],
+      correctIndex: 3,
+      explanation: "Internetbelasting is iets van nu. Herendiensten, pacht en tienden zijn manieren waarop boeren in de middeleeuwen moesten betalen."
+    },
+    {
+      text: "Eén woord hoort meer bij de stad dan bij het domein. Welke?",
+      level: "makkelijk",
+      options: ["marktplein", "boerderij", "molen", "akker"],
+      correctIndex: 0,
+      explanation: "Een marktplein hoort vooral bij een stad. De andere drie horen duidelijk bij het platteland en het domein."
+    },
+    {
+      text: "Welke hoort het minst bij de macht van de heer op zijn domein?",
+      level: "gemiddeld",
+      options: ["rechtspraak", "bescherming", "klooster", "pacht eisen"],
+      correctIndex: 2,
+      explanation: "Het klooster is een aparte macht (kerk). Rechtspraak, bescherming en pacht horen direct bij de taken en macht van de heer."
+    },
+    {
+      text: "Welke past niet goed bij de rest?",
+      level: "gemiddeld",
+      options: ["monnik", "klooster", "bisschop", "herendienst"],
+      correctIndex: 3,
+      explanation: "Herendienst is werk voor de heer. De andere drie woorden horen bij de kerk."
+    },
+    {
+      text: "Drie woorden gaan over onvrij zijn als boer. Welke past het minst?",
+      level: "gemiddeld",
+      options: ["horige", "wegvluchten", "gebonden aan het land", "vrije boer"],
+      correctIndex: 3,
+      explanation: "Een vrije boer is juist niet gebonden aan het land van de heer. De andere woorden passen bij horigheid."
+    },
+    {
+      text: "Welke hoort vooral bij latere tijden, niet bij de vroege middeleeuwen?",
+      level: "moeilijk",
+      options: ["drieslagstelsel", "paard en ploeg", "houten palissade", "ridder"],
+      correctIndex: 0,
+      explanation: "Het drieslagstelsel komt later in de middeleeuwen op. Paard en ploeg, de palissade en ridders passen al bij de tijd van monniken en ridders."
+    },
+    {
+      text: "Welke past het minst bij de andere drie begrippen?",
+      level: "moeilijk",
+      options: ["leenstelsel", "koning", "horige", "leenman"],
+      correctIndex: 2,
+      explanation: "Het leenstelsel gaat vooral over de afspraken tussen koning en leenmannen (adel). Horigen zijn boeren en horen daar niet direct bij."
+    }
+  ];
+
+  let currentIndex = 0;
+  let score = 0;
+
+  const quizEl = document.getElementById("quiz");
+  const finishedEl = document.getElementById("finished");
+  const finalMessageEl = document.getElementById("finalMessage");
+
+  function renderQuestion() {
+    const q = questions[currentIndex];
+    quizEl.innerHTML = "";
+
+    const card = document.createElement("div");
+    card.className = "question-card";
+
+    const title = document.createElement("h2");
+    title.textContent = "Opdracht " + (currentIndex + 1) + " van " + questions.length;
+    card.appendChild(title);
+
+    const levelTag = document.createElement("span");
+    levelTag.className = "tag";
+    levelTag.textContent = q.level.charAt(0).toUpperCase() + q.level.slice(1);
+    title.appendChild(levelTag);
+
+    const text = document.createElement("p");
+    text.textContent = q.text;
+    card.appendChild(text);
+
+    const optionsDiv = document.createElement("div");
+    optionsDiv.className = "options";
+
+    let answered = false;
+
+    q.options.forEach((opt, index) => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.textContent = opt;
+
+      btn.addEventListener("click", () => {
+        if (answered) return;
+        answered = true;
+
+        const isCorrect = index === q.correctIndex;
+        if (isCorrect) {
+          score++;
+          btn.classList.add("correct");
+        } else {
+          btn.classList.add("wrong");
+          // markeer juiste antwoord
+          optionsDiv.querySelectorAll(".option-btn")[q.correctIndex].classList.add("correct");
+        }
+
+        feedbackEl.innerHTML = isCorrect
+          ? '<span class="good">Goed!</span> ' + q.explanation
+          : '<span class="bad">Niet helemaal.</span> ' + q.explanation;
+
+        nextBtn.disabled = false;
+        updateScoreText();
+      });
+
+      optionsDiv.appendChild(btn);
+    });
+
+    card.appendChild(optionsDiv);
+
+    const feedbackEl = document.createElement("div");
+    feedbackEl.className = "feedback";
+    card.appendChild(feedbackEl);
+
+    const bottom = document.createElement("div");
+    bottom.className = "bottom-bar";
+
+    const scoreEl = document.createElement("div");
+    scoreEl.className = "score";
+    scoreEl.id = "scoreText";
+    scoreEl.textContent = `Score: ${score} / ${questions.length}`;
+    bottom.appendChild(scoreEl);
+
+    const nextBtn = document.createElement("button");
+    nextBtn.className = "btn-next";
+    nextBtn.textContent = currentIndex === questions.length - 1 ? "Klaar" : "Volgende opdracht";
+    nextBtn.disabled = true;
+    nextBtn.addEventListener("click", () => {
+      currentIndex++;
+      if (currentIndex < questions.length) {
+        renderQuestion();
+      } else {
+        showFinished();
+      }
+    });
+    bottom.appendChild(nextBtn);
+
+    card.appendChild(bottom);
+    quizEl.appendChild(card);
+  }
+
+  function updateScoreText() {
+    const scoreEl = document.getElementById("scoreText");
+    if (scoreEl) {
+      scoreEl.textContent = `Score: ${score} / ${questions.length}`;
+    }
+  }
+
+  function showFinished() {
+    quizEl.innerHTML = "";
+    finishedEl.style.display = "block";
+    const percentage = Math.round((score / questions.length) * 100);
+
+    let comment;
+    if (percentage >= 85) {
+      comment = "Heel knap! Jij kent de begrippen rond het domein al erg goed.";
+    } else if (percentage >= 60) {
+      comment = "Netjes! Je hebt al veel begrippen goed. Kijk nog eens naar de rijen die fout gingen.";
+    } else {
+      comment = "Goed geoefend! Het is handig om de begrippen nog een keer met je boek of docent door te nemen.";
+    }
+
+    finalMessageEl.textContent = `Je haalde ${score} van de ${questions.length} goed (${percentage}%). ${comment}`;
+  }
+
+  // Start
+  renderQuestion();
+</script>
+
+</body>
+</html>

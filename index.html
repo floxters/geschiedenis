@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <title>Beelden om te onthouden – Franse Revolutie</title>
+  <title>Levenslijn – Opstand in de Nederlanden</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     :root {
@@ -13,12 +13,12 @@
     body {
       margin: 0;
       padding: 0;
-      background: #f3f4f6;
+      background: #f3f3f7;
     }
 
     header {
       padding: 1.5rem 1rem;
-      background: #7c2d12;
+      background: #1f2937;
       color: white;
     }
 
@@ -41,7 +41,7 @@
 
     .intro {
       background: white;
-      border-radius: .7rem;
+      border-radius: .6rem;
       padding: 1rem 1.2rem;
       margin-bottom: 1rem;
       box-shadow: 0 2px 4px rgba(0,0,0,.05);
@@ -54,7 +54,7 @@
 
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 2.2fr) minmax(0, 2.5fr);
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
       gap: 1rem;
     }
 
@@ -66,11 +66,9 @@
 
     .card {
       background: white;
-      border-radius: .7rem;
-      padding: 1rem 1.1rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,.06);
-      font-size: .9rem;
-      margin-bottom: 1rem;
+      border-radius: .6rem;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,.05);
     }
 
     .card h2 {
@@ -78,419 +76,440 @@
       font-size: 1.1rem;
     }
 
-    .image-box {
-      margin-top: .4rem;
-      margin-bottom: .7rem;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .9rem;
+    }
+
+    th, td {
+      padding: .4rem .3rem;
+      vertical-align: top;
+    }
+
+    th {
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      color: #6b7280;
+    }
+
+    tr:nth-child(even) {
       background: #f9fafb;
-      border-radius: .7rem;
-      border: 1px dashed #d1d5db;
-      padding: .6rem;
+    }
+
+    .year {
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .person-label {
+      font-size: .75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      display: inline-block;
+      margin-bottom: .1rem;
+    }
+
+    .person-label.willem {
+      color: #b91c1c;
+    }
+
+    .person-label.filips {
+      color: #1d4ed8;
+    }
+
+    .slider-row {
       display: flex;
-      flex-direction: column;
+      align-items: center;
       gap: .4rem;
+      margin-bottom: .2rem;
     }
 
-    .image-box p {
-      margin: 0;
-      font-size: .85rem;
-      color: #4b5563;
+    input[type="range"] {
+      width: 100%;
     }
 
-    .image-box img {
+    .value-badge {
+      min-width: 24px;
+      text-align: center;
+      font-size: .8rem;
+      padding: .08rem .25rem;
+      border-radius: .4rem;
+      background: #e5e7eb;
+    }
+
+    .scale-help {
+      font-size: .75rem;
+      color: #6b7280;
+      margin-top: .4rem;
+    }
+
+    canvas {
+      width: 100%;
       max-width: 100%;
       border-radius: .6rem;
-      display: block;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
     }
 
-    .small-label {
-      font-size: .75rem;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      color: #6b7280;
-      margin-bottom: .2rem;
-      font-weight: 600;
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .8rem;
+      font-size: .85rem;
+      margin-bottom: .4rem;
+      align-items: center;
     }
 
-    input[type="text"], textarea {
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+    }
+
+    .legend-color {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+    }
+
+    .legend-color.red {
+      background: #dc2626;
+    }
+
+    .legend-color.blue {
+      background: #2563eb;
+    }
+
+    .legend-color.gray {
+      background: #9ca3af;
+    }
+
+    .explanation {
+      margin-top: .8rem;
+      font-size: .9rem;
+    }
+
+    .explanation textarea {
       width: 100%;
+      min-height: 150px;
       font-family: inherit;
       font-size: .9rem;
+      padding: .5rem;
       border-radius: .5rem;
       border: 1px solid #cbd5e1;
-      padding: .4rem .5rem;
+      resize: vertical;
       box-sizing: border-box;
     }
 
-    textarea {
-      min-height: 70px;
-      resize: vertical;
-    }
-
-    .question-block {
-      margin-bottom: .9rem;
-    }
-
-    .question-block p {
-      margin: 0 0 .3rem 0;
-    }
-
-    .split-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: .6rem;
-    }
-
-    @media (max-width: 600px) {
-      .split-row {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
     .hint {
-      font-size: .78rem;
+      font-size: .75rem;
       color: #6b7280;
       margin-top: .2rem;
-    }
-
-    .observant {
-      margin-top: 1rem;
-    }
-
-    .tag {
-      display: inline-block;
-      background: #fee2e2;
-      color: #7c2d12;
-      font-size: .74rem;
-      padding: .1rem .55rem;
-      border-radius: 999px;
-      margin-bottom: .4rem;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      font-weight: 600;
-    }
-
-    .collect-block h2 {
-      margin-top: 0;
-      font-size: 1.05rem;
-    }
-
-    .btn-collect {
-      border-radius: 999px;
-      border: none;
-      padding: .5rem 1.2rem;
-      background: #7c2d12;
-      color: white;
-      font-size: .9rem;
-      cursor: pointer;
-      margin-bottom: .6rem;
-    }
-
-    .btn-collect:hover {
-      filter: brightness(1.05);
-    }
-
-    #allAnswers {
-      min-height: 180px;
     }
   </style>
 </head>
 <body>
 <header>
-  <h1>Beelden om te onthouden – Franse Revolutie</h1>
+  <h1>Levenslijn – Opstand in de Nederlanden</h1>
   <p>
-    Werkvorm naar het voorbeeld uit <em>Actief historisch denken</em>: in groepjes een spotprent over de drie
-    standen bekijken, (na)tekenen en analyseren, met een observant die let op de samenwerking.
+    Je bekijkt belangrijke gebeurtenissen uit de tijd van de Opstand in de Nederlanden (Tachtigjarige Oorlog).
+    Je vult in hoe Willem van Oranje en Filips II zich bij elke gebeurtenis zouden voelen: heel blij, neutraal
+    of juist heel boos.
   </p>
 </header>
 
 <main>
   <section class="intro">
-    <p><strong>Opzet van de activiteit (in groepjes van 4–5):</strong></p>
+    <p><strong>Opdracht (in duo’s of individueel):</strong></p>
     <ul>
-      <li>Drie of vier leerlingen zijn <strong>tekenaars</strong> en maken samen een zo goed mogelijke kopie van de spotprent.</li>
-      <li>Eén leerling is <strong>observant</strong> en let op de aanpak en samenwerking in het groepje.</li>
-      <li>Na het tekenen beantwoordt iedereen de <strong>inhoudelijke vragen</strong> over de Franse Revolutie.</li>
-      <li>De observant vult daarnaast het <strong>observantenblok</strong> onderaan in.</li>
+      <li>Lees de jaartallen en gebeurtenissen in de tabel.</li>
+      <li>Kies per gebeurtenis een waarde van <strong>-5 t/m +5</strong> voor Willem van Oranje en voor Filips II.</li>
+      <li>Bekijk hoe de lijnen in de grafiek lopen. Waar groeien Willem en Filips naar elkaar toe? Waar juist uit elkaar?</li>
+      <li>Gebruik daarna de grafiek als steun bij een schrijfopdracht (bijvoorbeeld een brief van Willem aan Filips).</li>
     </ul>
-    <p class="hint">
-      Spreek als docent een vaste tijd af (bijv. steeds 20–30 seconden kijken per tekenaar) en hoeveel rondes er zijn.
+    <p class="scale-help">
+      <strong>Schaal:</strong> +5 = heel blij / helemaal eens · 0 = neutraal · -5 = heel boos / helemaal tegen
     </p>
   </section>
 
   <section class="layout">
-    <!-- LINKERKANT: TEKENEN + BASISINFO -->
-    <article class="card">
-      <h2>De spotprent natekenen</h2>
+    <!-- Linkerkant: tabel met gebeurtenissen + sliders -->
+    <div class="card">
+      <h2>Gebeurtenissen & waardering</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>Jaar</th>
+          <th>Gebeurtenis</th>
+          <th>Willem van Oranje</th>
+          <th>Filips II</th>
+        </tr>
+        </thead>
+        <tbody id="eventsBody">
+        <!-- Rijen worden door JavaScript gevuld -->
+        </tbody>
+      </table>
+    </div>
 
-      <div class="image-box">
-        <div class="small-label">Afbeelding</div>
-        <!-- Vervang de onderstaande regel door een echte afbeelding als je wilt -->
-        <!-- <img src="URL_VAN_DE_AFBEELDING_HIER" alt="Spotprent Franse Revolutie – ontwaken van de derde stand"> -->
-        <p>
-          Hier hoort een spotprent uit de tijd van de Franse Revolutie: een man ligt geketend op de grond,
-          twee andere mannen staan boven hem. Op de achtergrond zie je een groot gebouw (de Bastille).
-        </p>
-      </div>
-
-      <div class="question-block">
-        <div class="small-label">Bijschrift bij de prent</div>
-        <p style="margin-bottom:.2rem;font-size:.88rem;">
-          “Mijn hemel, het werd tijd dat ik wakker werd. De ketting is zo zwaar dat ik er een nachtmerrie van kreeg.”
-        </p>
-        <p class="hint">
-          Laat het bijschrift eventueel door één leerling hardop voorlezen voor de groep.
-        </p>
-      </div>
-
-      <div class="question-block">
-        <div class="small-label">Stap 1 – Tekenen</div>
-        <p>
-          <strong>Instructie voor de tekengroep:</strong>
-        </p>
-        <ul style="margin-top:.2rem;padding-left:1.1rem;">
-          <li>Spreek af wie de eerste, tweede, derde (en vierde) kijker is.</li>
-          <li>Steeds één leerling loopt naar de afbeelding, kijkt kort en komt terug.</li>
-          <li>De kijker beschrijft wat hij/zij zag; de anderen tekenen mee op één vel.</li>
-          <li>Herhaal dit in meerdere rondes tot jullie tekening zo compleet mogelijk is.</li>
-        </ul>
-        <p class="hint">
-          De tekening hoeven jullie niet hier te maken; gebruik een los vel papier of een tekenapp op je device.
-        </p>
-      </div>
-
-      <div class="question-block">
-        <div class="small-label">Stap 2 – Kort reflecteren op de tekening</div>
-        <p>Noteer hier kort wat volgens jullie goed ging bij het natekenen en wat lastig was.</p>
-        <textarea id="tekeningReflectie" placeholder="Wat ging goed? Wat was moeilijk? Hoe hebben jullie dat opgelost?"></textarea>
-      </div>
-    </article>
-
-    <!-- RECHTERKANT: VRAGEN VMBO-OPDRACHTENBLAD -->
-    <article class="card">
-      <h2>Vragen bij de spotprent (VMBO-niveau)</h2>
-
-      <div class="question-block">
-        <p><strong>1. De drie standen</strong></p>
-        <p style="margin-bottom:.25rem;">
-          In Frankrijk waren er drie hoofdgroepen (standen): geestelijkheid, adel en de rest van het volk (burgers/boeren).
-          De drie figuren op de prent verwijzen naar die groepen.
-        </p>
-        <p style="margin-bottom:.25rem;">
-          <em>Welke groep stelt de figuur op de grond voor? Leg je antwoord uit.</em>
-        </p>
-        <textarea id="q1" placeholder="Schrijf hier welke stand dit is en waarom je dat denkt."></textarea>
-      </div>
-
-      <div class="question-block">
-        <p><strong>2. De twee andere figuren</strong></p>
-        <p style="margin-bottom:.25rem;">
-          De twee staande figuren horen bij de andere standen.
-        </p>
-        <div class="split-row">
-          <div>
-            <p><em>Wie is de figuur links? Leg uit.</em></p>
-            <textarea id="q2a" placeholder="Linkerfiguur: welke stand? Waarom?"></textarea>
-          </div>
-          <div>
-            <p><em>Wie is de figuur rechts? Leg uit.</em></p>
-            <textarea id="q2b" placeholder="Rechterfiguur: welke stand? Waarom?"></textarea>
-          </div>
+    <!-- Rechterkant: grafiek + reflectie -->
+    <div class="card">
+      <h2>Grafiek: levenslijn</h2>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color red"></div><span>Willem van Oranje</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color blue"></div><span>Filips II</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color gray"></div><span>0-lijn (neutraal)</span>
         </div>
       </div>
+      <canvas id="chart" width="500" height="280"></canvas>
+      <p class="scale-help">
+        Bovenin de grafiek zie je +5 (heel blij), onderin -5 (heel boos). De punten zijn de waarden die jij hebt gekozen
+        voor elke gebeurtenis. De jaren staan op de horizontale as.
+      </p>
 
-      <div class="question-block">
-        <p><strong>3. De ketting</strong></p>
-        <p style="margin-bottom:.25rem;">
-          De man op de grond wil loskomen van zijn ketting. Denk aan wat je uit het boek weet over belastingen,
-          ongelijkheid en macht in Frankrijk vóór de revolutie.
-        </p>
-        <p style="margin-bottom:.25rem;">
-          <em>Waarom voelde deze groep zich “vastgebonden”? Leg uit met eigen woorden.</em>
-        </p>
-        <textarea id="q3" placeholder="Beschrijf waarom deze stand zich gevangen voelde."></textarea>
+      <div class="explanation">
+        <label for="uitleg">Onze uitleg / samenvatting</label>
+        <textarea id="uitleg" placeholder="Schrijf hier kort wat je opvalt. Bijvoorbeeld: Bij welke gebeurtenissen wordt Willem steeds negatiever, terwijl Filips positief blijft? Wanneer wordt het conflict echt duidelijk?"></textarea>
+        <div class="hint">
+          Tip: kopieer jullie tekst en plak hem in Magister / Teams / Google Classroom om hem bij de docent in te leveren.
+        </div>
       </div>
-
-      <div class="question-block">
-        <p><strong>4. De boodschap van de tekenaar</strong></p>
-        <p style="margin-bottom:.25rem;">
-          Spotprenten willen vaak een duidelijke boodschap overbrengen.
-        </p>
-        <p style="margin-bottom:.25rem;">
-          <em>Wat wil de tekenaar volgens jou duidelijk maken met deze prent?</em>
-        </p>
-        <textarea id="q4" placeholder="Wat zegt deze prent over de drie standen en het begin van de revolutie?"></textarea>
-      </div>
-
-      <div class="question-block">
-        <p><strong>5. Een eigen titel</strong></p>
-        <p style="margin-bottom:.25rem;">
-          De prent heeft een Franse titel, maar jij mag er een Nederlandse bij bedenken.
-        </p>
-        <input type="text" id="q5" placeholder="Bedenk een korte, passende titel voor de spotprent.">
-      </div>
-
-      <div class="question-block">
-        <p><strong>6. Het gebouw op de achtergrond</strong></p>
-        <p style="margin-bottom:.25rem;">
-          Op de achtergrond staat een groot gebouw: de Bastille.
-        </p>
-        <p style="margin-bottom:.25rem;">
-          <em>Zoek op of gebruik je voorkennis: wat gebeurde er op 14 juli 1789 bij de Bastille,
-          en waarom is dat belangrijk voor de Franse Revolutie?</em>
-        </p>
-        <textarea id="q6" placeholder="Leg kort uit wat er bij de Bastille gebeurde en waarom dat een belangrijk moment was."></textarea>
-      </div>
-    </article>
-  </section>
-
-  <!-- OBSERVANTENBLOK -->
-  <section class="card observant">
-    <div class="tag">Observant</div>
-    <h2>Observantenblad – samenwerking & aanpak</h2>
-    <p style="font-size:.9rem;">
-      Deze vragen zijn voor de <strong>observant</strong> van het groepje. Schrijf kort op wat je hebt gezien en gehoord.
-    </p>
-
-    <div class="question-block">
-      <p><strong>1. Afspraak voor de eerste kijker</strong></p>
-      <p style="margin-bottom:.25rem;">
-        Welke opdracht kreeg de eerste leerling die naar de prent mocht kijken? Werkte dat goed? Waarom wel/niet?
-      </p>
-      <textarea id="obs1" placeholder="Beschrijf de opdracht van de eerste kijker en of dit goed werkte."></textarea>
     </div>
-
-    <div class="question-block">
-      <p><strong>2. Veranderen van aanpak</strong></p>
-      <p style="margin-bottom:.25rem;">
-        Is de werkwijze veranderd voor de tweede, derde (en eventueel vierde) kijker in de eerste ronde?
-        Hoe dan, en was dat een verbetering?
-      </p>
-      <textarea id="obs2" placeholder="Welke aanpassingen zijn er gedaan en hadden die effect?"></textarea>
-    </div>
-
-    <div class="question-block">
-      <p><strong>3. Tweede ronde</strong></p>
-      <p style="margin-bottom:.25rem;">
-        Heeft het groepje in de tweede ronde iets anders gedaan dan in de eerste? Werkte dat beter of juist niet?
-      </p>
-      <textarea id="obs3" placeholder="Beschrijf de verschillen tussen eerste en tweede ronde."></textarea>
-    </div>
-
-    <div class="question-block">
-      <p><strong>4. Gesprek over geschiedenis</strong></p>
-      <p style="margin-bottom:.25rem;">
-        Werd er in het groepje ook echt over geschiedenis gepraat? Bijvoorbeeld over Verlichting, de drie standen,
-        absolutisme of Frankrijk in de 18e eeuw. Schrijf kort op welke begrippen langskwamen.
-      </p>
-      <textarea id="obs4" placeholder="Welke historische begrippen en kennis zijn gebruikt in het gesprek?"></textarea>
-    </div>
-
-    <div class="question-block">
-      <p><strong>5. Wat is het belangrijkste aan de prent?</strong></p>
-      <p style="margin-bottom:.25rem;">
-        Heeft het groepje besproken wat ze het allerbelangrijkst vonden aan de spotprent? Hoe probeerden ze dat samen
-        te bepalen?
-      </p>
-      <textarea id="obs5" placeholder="Noteer hoe het groepje probeerde te achterhalen wat de kern / boodschap van de prent is."></textarea>
-    </div>
-
-    <p class="hint">
-      Tip voor de docent: laat na afloop eerst twee observanten kort terugkoppelen. Gebruik hun opmerkingen om naar de
-      historische inhoud (drie standen, ontevredenheid, Bastille) door te schakelen.
-    </p>
-  </section>
-
-  <!-- VERZAMELVELD -->
-  <section class="card collect-block">
-    <h2>Verzamel en kopieer alle antwoorden</h2>
-    <p style="font-size:.9rem;">
-      Klik op de knop om alle antwoorden van dit groepje te verzamelen in één tekstvak. Kopieer die tekst en plak
-      hem in Magister / Teams / een e-mail naar de docent.
-    </p>
-    <button class="btn-collect" id="collectButton">Verzamel antwoorden</button>
-    <textarea id="allAnswers" placeholder="Hier verschijnen alle antwoorden van jullie groep als je op de knop hierboven klikt."></textarea>
-    <p class="hint">
-      Selecteer alles (Ctrl+A of cmd+A) en kopieer (Ctrl+C of cmd+C) om de tekst te plakken waar de docent dat wil.
-    </p>
   </section>
 </main>
 
 <script>
-  function getValue(id) {
-    const el = document.getElementById(id);
-    return el ? el.value.trim() : "";
+  // Gebeurtenissen op basis van de VMBO-levenslijn uit het boek
+  const events = [
+    {
+      year: 1545,
+      text: "Willem en Filips groeien op aan het hof van keizer Karel V. Ze krijgen samen hun opvoeding in het paleis."
+    },
+    {
+      year: 1555,
+      text: "Filips wordt koning over de Nederlanden. Willem is eregast bij de plechtigheid."
+    },
+    {
+      year: 1559,
+      text: "Filips benoemt Willem van Oranje tot stadhouder van Holland, Utrecht en Zeeland."
+    },
+    {
+      year: 1561,
+      text: "Willem krijgt toestemming van Filips om te trouwen met een vrouw die protestants is."
+    },
+    {
+      year: 1566,
+      text: "Beeldenstorm: protestanten vernielen katholieke kerken. Filips is woedend. Willem is boos over het geweld, maar wil wel meer godsdienstvrijheid."
+    },
+    {
+      year: 1568,
+      text: "Een Spaans leger trekt naar de Nederlanden om op te treden tegen protestanten. Willem vlucht. Dit is het begin van de Tachtigjarige Oorlog."
+    },
+    {
+      year: 1572,
+      text: "De watergeuzen veroveren Den Briel. Het is de eerste stad die vrij is van Spaanse troepen."
+    },
+    {
+      year: 1579,
+      text: "Een aantal noordelijke gewesten gaat samen verder in de Unie van Utrecht. Het zuiden blijft Filips steunen."
+    },
+    {
+      year: 1581,
+      text: "Met het Plakkaat van Verlatinghe zetten de noordelijke gewesten Filips af als hun vorst."
+    },
+    {
+      year: 1584,
+      text: "Willem van Oranje wordt vermoord door Balthasar Gerards."
+    }
+  ];
+
+  const eventsBody = document.getElementById("eventsBody");
+  const canvas = document.getElementById("chart");
+  const ctx = canvas.getContext("2d");
+
+  // standaardwaarden: alles neutraal (0)
+  let willemValues = new Array(events.length).fill(0);
+  let filipsValues = new Array(events.length).fill(0);
+
+  function createTableRows() {
+    events.forEach((ev, index) => {
+      const tr = document.createElement("tr");
+
+      const tdYear = document.createElement("td");
+      tdYear.className = "year";
+      tdYear.textContent = ev.year;
+      tr.appendChild(tdYear);
+
+      const tdText = document.createElement("td");
+      tdText.textContent = ev.text;
+      tr.appendChild(tdText);
+
+      const tdWillem = document.createElement("td");
+      tdWillem.appendChild(createSliderBlock(index, "willem"));
+      tr.appendChild(tdWillem);
+
+      const tdFilips = document.createElement("td");
+      tdFilips.appendChild(createSliderBlock(index, "filips"));
+      tr.appendChild(tdFilips);
+
+      eventsBody.appendChild(tr);
+    });
   }
 
-  document.getElementById("collectButton").addEventListener("click", () => {
-    const pieces = [];
+  function createSliderBlock(index, person) {
+    const container = document.createElement("div");
 
-    pieces.push("=== Beelden om te onthouden – Franse Revolutie ===");
-    pieces.push("");
+    const label = document.createElement("div");
+    label.className = "person-label " + person;
+    label.textContent = person === "willem" ? "Willem" : "Filips";
+    container.appendChild(label);
 
-    // Tekenen / reflectie
-    pieces.push("TEKENING – Reflectie:");
-    pieces.push(getValue("tekeningReflectie") || "[geen antwoord]");
-    pieces.push("");
+    const row = document.createElement("div");
+    row.className = "slider-row";
 
-    // Inhoudelijke vragen
-    pieces.push("VRAGEN BIJ DE SPOTPRENT");
-    pieces.push("");
-    pieces.push("1. De drie standen – figuur op de grond:");
-    pieces.push(getValue("q1") || "[geen antwoord]");
-    pieces.push("");
+    const slider = document.createElement("input");
+    slider.type = "range";
+    slider.min = -5;
+    slider.max = 5;
+    slider.step = 1;
+    slider.value = 0;
 
-    pieces.push("2a. Figuur links:");
-    pieces.push(getValue("q2a") || "[geen antwoord]");
-    pieces.push("");
-    pieces.push("2b. Figuur rechts:");
-    pieces.push(getValue("q2b") || "[geen antwoord]");
-    pieces.push("");
+    const badge = document.createElement("span");
+    badge.className = "value-badge";
+    badge.textContent = "0";
 
-    pieces.push("3. De ketting – waarom voelt deze groep zich vastgebonden?");
-    pieces.push(getValue("q3") || "[geen antwoord]");
-    pieces.push("");
+    slider.addEventListener("input", () => {
+      const val = parseInt(slider.value, 10);
+      badge.textContent = val;
+      if (person === "willem") {
+        willemValues[index] = val;
+      } else {
+        filipsValues[index] = val;
+      }
+      drawChart();
+    });
 
-    pieces.push("4. Boodschap van de tekenaar:");
-    pieces.push(getValue("q4") || "[geen antwoord]");
-    pieces.push("");
+    row.appendChild(slider);
+    row.appendChild(badge);
+    container.appendChild(row);
 
-    pieces.push("5. Eigen titel voor de spotprent:");
-    pieces.push(getValue("q5") || "[geen antwoord]");
-    pieces.push("");
+    return container;
+  }
 
-    pieces.push("6. De Bastille – wat gebeurde er en waarom is dat belangrijk?");
-    pieces.push(getValue("q6") || "[geen antwoord]");
-    pieces.push("");
+  function drawChart() {
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
 
-    // Observant
-    pieces.push("OBSERVANTENBLOK");
-    pieces.push("");
-    pieces.push("Obs 1. Opdracht voor de eerste kijker:");
-    pieces.push(getValue("obs1") || "[geen antwoord]");
-    pieces.push("");
+    const margin = 40;
+    const chartWidth = w - margin * 2;
+    const chartHeight = h - margin * 2;
 
-    pieces.push("Obs 2. Veranderen van aanpak in ronde 1:");
-    pieces.push(getValue("obs2") || "[geen antwoord]");
-    pieces.push("");
+    // achtergrond
+    ctx.fillStyle = "#f9fafb";
+    ctx.fillRect(0, 0, w, h);
 
-    pieces.push("Obs 3. Verschillen eerste en tweede ronde:");
-    pieces.push(getValue("obs3") || "[geen antwoord]");
-    pieces.push("");
+    // assen
+    ctx.strokeStyle = "#9ca3af";
+    ctx.lineWidth = 1;
 
-    pieces.push("Obs 4. Gesprek over geschiedenis (begrippen):");
-    pieces.push(getValue("obs4") || "[geen antwoord]");
-    pieces.push("");
+    // horizontale 0-lijn
+    const zeroY = margin + chartHeight / 2;
+    ctx.beginPath();
+    ctx.moveTo(margin, zeroY);
+    ctx.lineTo(w - margin, zeroY);
+    ctx.stroke();
 
-    pieces.push("Obs 5. Wat is het belangrijkste aan de prent?");
-    pieces.push(getValue("obs5") || "[geen antwoord]");
-    pieces.push("");
+    // verticale as
+    ctx.beginPath();
+    ctx.moveTo(margin, margin - 5);
+    ctx.lineTo(margin, h - margin + 5);
+    ctx.stroke();
 
-    const allText = pieces.join("\n");
-    const output = document.getElementById("allAnswers");
-    output.value = allText;
-    output.focus();
-    output.select(); // maakt het kopiëren voor leerlingen net wat makkelijker
-  });
+    // schaalverdeling -5 t/m +5
+    ctx.fillStyle = "#6b7280";
+    ctx.font = "10px system-ui";
+    for (let v = -5; v <= 5; v += 1) {
+      const y = zeroY - (v * (chartHeight / 10));
+      ctx.beginPath();
+      ctx.moveTo(margin - 4, y);
+      ctx.lineTo(margin + 4, y);
+      ctx.strokeStyle = "#d1d5db";
+      ctx.stroke();
+
+      // rasterlijnen
+      if (v !== 0) {
+        ctx.beginPath();
+        ctx.moveTo(margin, y);
+        ctx.lineTo(w - margin, y);
+        ctx.strokeStyle = "#e5e7eb";
+        ctx.stroke();
+      }
+
+      ctx.fillStyle = "#6b7280";
+      ctx.textAlign = "right";
+      ctx.fillText(v.toString(), margin - 8, y + 3);
+    }
+
+    // jaren op x-as
+    const stepX = events.length > 1 ? chartWidth / (events.length - 1) : chartWidth;
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#4b5563";
+    events.forEach((ev, i) => {
+      const x = margin + i * stepX;
+      const y = h - margin + 12;
+      ctx.fillText(ev.year.toString(), x, y);
+
+      // hulplijn omhoog
+      ctx.beginPath();
+      ctx.moveTo(x, h - margin);
+      ctx.lineTo(x, margin);
+      ctx.strokeStyle = "#eef2f7";
+      ctx.stroke();
+    });
+
+    function drawLine(values, color) {
+      ctx.beginPath();
+      values.forEach((val, i) => {
+        const x = margin + i * stepX;
+        const y = zeroY - (val * (chartHeight / 10));
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // punten tekenen
+      values.forEach((val, i) => {
+        const x = margin + i * stepX;
+        const y = zeroY - (val * (chartHeight / 10));
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+    }
+
+    drawLine(willemValues, "#dc2626"); // rood
+    drawLine(filipsValues, "#2563eb"); // blauw;
+  }
+
+  // Start
+  createTableRows();
+  drawChart();
 </script>
 
 </body>

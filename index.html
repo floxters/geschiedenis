@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <title>Levenslijn – Opstand in de Nederlanden</title>
+  <title>Geschiedenis – opdrachtenportaal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     :root {
@@ -13,18 +13,19 @@
     body {
       margin: 0;
       padding: 0;
-      background: #f3f3f7;
+      background: #f3f4f6;
+      color: #111827;
     }
 
     header {
-      padding: 1.5rem 1rem;
-      background: #1f2937;
+      padding: 1.5rem 1rem 1.2rem 1rem;
+      background: radial-gradient(circle at top left, #1f2937, #111827);
       color: white;
     }
 
     header h1 {
       margin: 0 0 .4rem 0;
-      font-size: 1.6rem;
+      font-size: 1.8rem;
     }
 
     header p {
@@ -36,481 +37,215 @@
     main {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 1rem;
+      padding: 1.5rem 1rem 2rem 1rem;
     }
 
     .intro {
       background: white;
-      border-radius: .6rem;
+      border-radius: .75rem;
       padding: 1rem 1.2rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,.05);
+      margin-bottom: 1.2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,.05);
       font-size: .95rem;
     }
 
-    .intro ul {
-      margin-top: .3rem;
+    .intro h2 {
+      margin: 0 0 .4rem 0;
+      font-size: 1.1rem;
     }
 
-    .layout {
+    .grid {
       display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 1rem;
-    }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      margin-top: .5rem;
     }
 
     .card {
       background: white;
-      border-radius: .6rem;
-      padding: 1rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,.05);
-    }
-
-    .card h2 {
-      margin-top: 0;
-      font-size: 1.1rem;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: .9rem;
-    }
-
-    th, td {
-      padding: .4rem .3rem;
-      vertical-align: top;
-    }
-
-    th {
-      text-align: left;
-      border-bottom: 1px solid #e5e7eb;
-      font-size: .8rem;
-      text-transform: uppercase;
-      letter-spacing: .03em;
-      color: #6b7280;
-    }
-
-    tr:nth-child(even) {
-      background: #f9fafb;
-    }
-
-    .year {
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .person-label {
-      font-size: .75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-      display: inline-block;
-      margin-bottom: .1rem;
-    }
-
-    .person-label.willem {
-      color: #b91c1c;
-    }
-
-    .person-label.filips {
-      color: #1d4ed8;
-    }
-
-    .slider-row {
+      border-radius: .9rem;
+      padding: 1rem 1.1rem 1rem 1.1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,.06);
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: .4rem;
+      position: relative;
+      border: 1px solid #e5e7eb;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: .9rem;
+      color: #4b5563;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      border-radius: 999px;
+      padding: .1rem .6rem;
       margin-bottom: .2rem;
     }
 
-    input[type="range"] {
-      width: 100%;
+    .badge-tijdvak {
+      background: #dbeafe;
+      color: #1d4ed8;
     }
 
-    .value-badge {
-      min-width: 24px;
-      text-align: center;
+    .badge-vmbo {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .badge-opmerking {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .card-footer {
+      margin-top: .6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .5rem;
       font-size: .8rem;
-      padding: .08rem .25rem;
-      border-radius: .4rem;
-      background: #e5e7eb;
+      color: #6b7280;
     }
 
-    .scale-help {
-      font-size: .75rem;
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      text-decoration: none;
+      font-size: .86rem;
+      padding: .4rem .8rem;
+      border-radius: 999px;
+      border: none;
+      background: #111827;
+      color: white;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-link span.icon {
+      font-size: .95rem;
+    }
+
+    .small-note {
+      font-size: .8rem;
       color: #6b7280;
       margin-top: .4rem;
     }
 
-    canvas {
-      width: 100%;
-      max-width: 100%;
-      border-radius: .6rem;
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-    }
-
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .8rem;
-      font-size: .85rem;
-      margin-bottom: .4rem;
-      align-items: center;
-    }
-
-    .legend-item {
-      display: inline-flex;
-      align-items: center;
-      gap: .3rem;
-    }
-
-    .legend-color {
-      width: 14px;
-      height: 14px;
-      border-radius: 999px;
-    }
-
-    .legend-color.red {
-      background: #dc2626;
-    }
-
-    .legend-color.blue {
-      background: #2563eb;
-    }
-
-    .legend-color.gray {
-      background: #9ca3af;
-    }
-
-    .explanation {
-      margin-top: .8rem;
-      font-size: .9rem;
-    }
-
-    .explanation textarea {
-      width: 100%;
-      min-height: 150px;
-      font-family: inherit;
-      font-size: .9rem;
-      padding: .5rem;
-      border-radius: .5rem;
-      border: 1px solid #cbd5e1;
-      resize: vertical;
-      box-sizing: border-box;
-    }
-
-    .hint {
-      font-size: .75rem;
-      color: #6b7280;
-      margin-top: .2rem;
+    @media (max-width: 600px) {
+      header {
+        text-align: left;
+      }
     }
   </style>
 </head>
 <body>
 <header>
-  <h1>Levenslijn – Opstand in de Nederlanden</h1>
+  <h1>Geschiedenis – digitale opdrachten</h1>
   <p>
-    Je bekijkt belangrijke gebeurtenissen uit de tijd van de Opstand in de Nederlanden (Tachtigjarige Oorlog).
-    Je vult in hoe Willem van Oranje en Filips II zich bij elke gebeurtenis zouden voelen: heel blij, neutraal
-    of juist heel boos.
+    Portaal met interactieve opdrachten voor geschiedenis. Kies hieronder een opdracht. Leerlingen kunnen hun
+    antwoorden steeds kopiëren en inleveren via Magister / Teams / e-mail.
   </p>
 </header>
 
 <main>
   <section class="intro">
-    <p><strong>Opdracht (in duo’s of individueel):</strong></p>
-    <ul>
-      <li>Lees de jaartallen en gebeurtenissen in de tabel.</li>
-      <li>Kies per gebeurtenis een waarde van <strong>-5 t/m +5</strong> voor Willem van Oranje en voor Filips II.</li>
-      <li>Bekijk hoe de lijnen in de grafiek lopen. Waar groeien Willem en Filips naar elkaar toe? Waar juist uit elkaar?</li>
-      <li>Gebruik daarna de grafiek als steun bij een schrijfopdracht (bijvoorbeeld een brief van Willem aan Filips).</li>
-    </ul>
-    <p class="scale-help">
-      <strong>Schaal:</strong> +5 = heel blij / helemaal eens · 0 = neutraal · -5 = heel boos / helemaal tegen
+    <h2>Over dit portaal</h2>
+    <p>
+      Deze pagina verzamelt verschillende webopdrachten, zoals mysteries, woordoefeningen en een levenslijn.
+      De opdrachten zijn vooral gericht op vmbo-leerlingen in de onderbouw.
+    </p>
+    <p class="small-note">
+      Tip voor leerlingen: open één opdracht per tabblad. Lees altijd eerst de uitleg bovenaan de opdrachtpagina.
     </p>
   </section>
 
-  <section class="layout">
-    <!-- Linkerkant: tabel met gebeurtenissen + sliders -->
-    <div class="card">
-      <h2>Gebeurtenissen & waardering</h2>
-      <table>
-        <thead>
-        <tr>
-          <th>Jaar</th>
-          <th>Gebeurtenis</th>
-          <th>Willem van Oranje</th>
-          <th>Filips II</th>
-        </tr>
-        </thead>
-        <tbody id="eventsBody">
-        <!-- Rijen worden door JavaScript gevuld -->
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Rechterkant: grafiek + reflectie -->
-    <div class="card">
-      <h2>Grafiek: levenslijn</h2>
-      <div class="legend">
-        <div class="legend-item">
-          <div class="legend-color red"></div><span>Willem van Oranje</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color blue"></div><span>Filips II</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-color gray"></div><span>0-lijn (neutraal)</span>
-        </div>
-      </div>
-      <canvas id="chart" width="500" height="280"></canvas>
-      <p class="scale-help">
-        Bovenin de grafiek zie je +5 (heel blij), onderin -5 (heel boos). De punten zijn de waarden die jij hebt gekozen
-        voor elke gebeurtenis. De jaren staan op de horizontale as.
+  <section class="grid">
+    <!-- Beelden – Franse Revolutie -->
+    <article class="card">
+      <span class="badge badge-tijdvak">Tijdvak 7 – Pruiken en revoluties</span>
+      <span class="badge badge-vmbo">vmbo onderbouw</span>
+      <h3>Beelden om te onthouden – Franse Revolutie</h3>
+      <p>
+        Werkvorm bij een spotprent over de drie standen en de Bastille. Groepsopdracht met tekenaars en een
+        observant. Aan het einde worden alle antwoorden verzameld in één tekstveld om in te leveren.
       </p>
-
-      <div class="explanation">
-        <label for="uitleg">Onze uitleg / samenvatting</label>
-        <textarea id="uitleg" placeholder="Schrijf hier kort wat je opvalt. Bijvoorbeeld: Bij welke gebeurtenissen wordt Willem steeds negatiever, terwijl Filips positief blijft? Wanneer wordt het conflict echt duidelijk?"></textarea>
-        <div class="hint">
-          Tip: kopieer jullie tekst en plak hem in Magister / Teams / Google Classroom om hem bij de docent in te leveren.
-        </div>
+      <div class="card-footer">
+        <span>Bestand: <code>beelden2.html</code></span>
+        <a class="btn-link" href="beelden2.html">
+          <span class="icon">🖼️</span><span>Open opdracht</span>
+        </a>
       </div>
-    </div>
+    </article>
+
+    <!-- Levenslijn – Opstand -->
+    <article class="card">
+      <span class="badge badge-tijdvak">Tijdvak 5 & 6 – Opstand</span>
+      <span class="badge badge-vmbo">vmbo onderbouw</span>
+      <h3>Levenslijn – Opstand in de Nederlanden</h3>
+      <p>
+        Leerlingen geven per gebeurtenis in de Opstand een score voor Willem van Oranje en Filips II (-5 tot +5)
+        en zien de verschillen in een grafiek. Met reflectieveld om hun bevindingen samen te vatten.
+      </p>
+      <div class="card-footer">
+        <span>Bestand: <code>levenslijn.html</code></span>
+        <a class="btn-link" href="levenslijn.html">
+          <span class="icon">📈</span><span>Open opdracht</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- Mysterie – dood van Graaf Willem -->
+    <article class="card">
+      <span class="badge badge-tijdvak">Tijdvak 4 – Steden en staten</span>
+      <span class="badge badge-vmbo">vmbo onderbouw</span>
+      <h3>Mysterie – de dood van Graaf Willem</h3>
+      <p>
+        Mystery over de dood van Graaf Willem rond Zutphen. Leerlingen selecteren bewijsteksten en schrijven een
+        historisch onderbouwde conclusie over dader en motief (stadsrechten, opkomst van de stad).
+      </p>
+      <div class="card-footer">
+        <span>Bestand: <code>mysterie_graaf_willem.html</code></span>
+        <a class="btn-link" href="mysterie_graaf_willem.html">
+          <span class="icon">🕵️</span><span>Open opdracht</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- Welk woord weg – domein -->
+    <article class="card">
+      <span class="badge badge-tijdvak">Tijdvak 3 – Monniken en ridders</span>
+      <span class="badge badge-vmbo">vmbo onderbouw</span>
+      <span class="badge badge-opmerking">Let op</span>
+      <h3>Welk woord weg? – Leven op een domein</h3>
+      <p>
+        Oefening met begrippen rond het hofstelsel en horigheid. Bij elke rij woorden kiezen leerlingen welk woord
+        niet past, met directe feedback.
+      </p>
+      <p style="font-size:.82rem;color:#b91c1c;margin:0;">
+        Let op: in deze versie staan nog enkele <strong>“onzinwoorden”</strong> of tijdelijke voorbeeldwoorden.
+        Deze opdracht is nog in ontwikkeling.
+      </p>
+      <div class="card-footer">
+        <span>Bestand: <code>welkwoordweg.html</code></span>
+        <a class="btn-link" href="welkwoordweg.html">
+          <span class="icon">🔤</span><span>Open opdracht</span>
+        </a>
+      </div>
+    </article>
   </section>
 </main>
-
-<script>
-  // Gebeurtenissen op basis van de VMBO-levenslijn uit het boek
-  const events = [
-    {
-      year: 1545,
-      text: "Willem en Filips groeien op aan het hof van keizer Karel V. Ze krijgen samen hun opvoeding in het paleis."
-    },
-    {
-      year: 1555,
-      text: "Filips wordt koning over de Nederlanden. Willem is eregast bij de plechtigheid."
-    },
-    {
-      year: 1559,
-      text: "Filips benoemt Willem van Oranje tot stadhouder van Holland, Utrecht en Zeeland."
-    },
-    {
-      year: 1561,
-      text: "Willem krijgt toestemming van Filips om te trouwen met een vrouw die protestants is."
-    },
-    {
-      year: 1566,
-      text: "Beeldenstorm: protestanten vernielen katholieke kerken. Filips is woedend. Willem is boos over het geweld, maar wil wel meer godsdienstvrijheid."
-    },
-    {
-      year: 1568,
-      text: "Een Spaans leger trekt naar de Nederlanden om op te treden tegen protestanten. Willem vlucht. Dit is het begin van de Tachtigjarige Oorlog."
-    },
-    {
-      year: 1572,
-      text: "De watergeuzen veroveren Den Briel. Het is de eerste stad die vrij is van Spaanse troepen."
-    },
-    {
-      year: 1579,
-      text: "Een aantal noordelijke gewesten gaat samen verder in de Unie van Utrecht. Het zuiden blijft Filips steunen."
-    },
-    {
-      year: 1581,
-      text: "Met het Plakkaat van Verlatinghe zetten de noordelijke gewesten Filips af als hun vorst."
-    },
-    {
-      year: 1584,
-      text: "Willem van Oranje wordt vermoord door Balthasar Gerards."
-    }
-  ];
-
-  const eventsBody = document.getElementById("eventsBody");
-  const canvas = document.getElementById("chart");
-  const ctx = canvas.getContext("2d");
-
-  // standaardwaarden: alles neutraal (0)
-  let willemValues = new Array(events.length).fill(0);
-  let filipsValues = new Array(events.length).fill(0);
-
-  function createTableRows() {
-    events.forEach((ev, index) => {
-      const tr = document.createElement("tr");
-
-      const tdYear = document.createElement("td");
-      tdYear.className = "year";
-      tdYear.textContent = ev.year;
-      tr.appendChild(tdYear);
-
-      const tdText = document.createElement("td");
-      tdText.textContent = ev.text;
-      tr.appendChild(tdText);
-
-      const tdWillem = document.createElement("td");
-      tdWillem.appendChild(createSliderBlock(index, "willem"));
-      tr.appendChild(tdWillem);
-
-      const tdFilips = document.createElement("td");
-      tdFilips.appendChild(createSliderBlock(index, "filips"));
-      tr.appendChild(tdFilips);
-
-      eventsBody.appendChild(tr);
-    });
-  }
-
-  function createSliderBlock(index, person) {
-    const container = document.createElement("div");
-
-    const label = document.createElement("div");
-    label.className = "person-label " + person;
-    label.textContent = person === "willem" ? "Willem" : "Filips";
-    container.appendChild(label);
-
-    const row = document.createElement("div");
-    row.className = "slider-row";
-
-    const slider = document.createElement("input");
-    slider.type = "range";
-    slider.min = -5;
-    slider.max = 5;
-    slider.step = 1;
-    slider.value = 0;
-
-    const badge = document.createElement("span");
-    badge.className = "value-badge";
-    badge.textContent = "0";
-
-    slider.addEventListener("input", () => {
-      const val = parseInt(slider.value, 10);
-      badge.textContent = val;
-      if (person === "willem") {
-        willemValues[index] = val;
-      } else {
-        filipsValues[index] = val;
-      }
-      drawChart();
-    });
-
-    row.appendChild(slider);
-    row.appendChild(badge);
-    container.appendChild(row);
-
-    return container;
-  }
-
-  function drawChart() {
-    const w = canvas.width;
-    const h = canvas.height;
-    ctx.clearRect(0, 0, w, h);
-
-    const margin = 40;
-    const chartWidth = w - margin * 2;
-    const chartHeight = h - margin * 2;
-
-    // achtergrond
-    ctx.fillStyle = "#f9fafb";
-    ctx.fillRect(0, 0, w, h);
-
-    // assen
-    ctx.strokeStyle = "#9ca3af";
-    ctx.lineWidth = 1;
-
-    // horizontale 0-lijn
-    const zeroY = margin + chartHeight / 2;
-    ctx.beginPath();
-    ctx.moveTo(margin, zeroY);
-    ctx.lineTo(w - margin, zeroY);
-    ctx.stroke();
-
-    // verticale as
-    ctx.beginPath();
-    ctx.moveTo(margin, margin - 5);
-    ctx.lineTo(margin, h - margin + 5);
-    ctx.stroke();
-
-    // schaalverdeling -5 t/m +5
-    ctx.fillStyle = "#6b7280";
-    ctx.font = "10px system-ui";
-    for (let v = -5; v <= 5; v += 1) {
-      const y = zeroY - (v * (chartHeight / 10));
-      ctx.beginPath();
-      ctx.moveTo(margin - 4, y);
-      ctx.lineTo(margin + 4, y);
-      ctx.strokeStyle = "#d1d5db";
-      ctx.stroke();
-
-      // rasterlijnen
-      if (v !== 0) {
-        ctx.beginPath();
-        ctx.moveTo(margin, y);
-        ctx.lineTo(w - margin, y);
-        ctx.strokeStyle = "#e5e7eb";
-        ctx.stroke();
-      }
-
-      ctx.fillStyle = "#6b7280";
-      ctx.textAlign = "right";
-      ctx.fillText(v.toString(), margin - 8, y + 3);
-    }
-
-    // jaren op x-as
-    const stepX = events.length > 1 ? chartWidth / (events.length - 1) : chartWidth;
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#4b5563";
-    events.forEach((ev, i) => {
-      const x = margin + i * stepX;
-      const y = h - margin + 12;
-      ctx.fillText(ev.year.toString(), x, y);
-
-      // hulplijn omhoog
-      ctx.beginPath();
-      ctx.moveTo(x, h - margin);
-      ctx.lineTo(x, margin);
-      ctx.strokeStyle = "#eef2f7";
-      ctx.stroke();
-    });
-
-    function drawLine(values, color) {
-      ctx.beginPath();
-      values.forEach((val, i) => {
-        const x = margin + i * stepX;
-        const y = zeroY - (val * (chartHeight / 10));
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      });
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      // punten tekenen
-      values.forEach((val, i) => {
-        const x = margin + i * stepX;
-        const y = zeroY - (val * (chartHeight / 10));
-        ctx.beginPath();
-        ctx.arc(x, y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = color;
-        ctx.fill();
-        ctx.strokeStyle = "#ffffff";
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      });
-    }
-
-    drawLine(willemValues, "#dc2626"); // rood
-    drawLine(filipsValues, "#2563eb"); // blauw;
-  }
-
-  // Start
-  createTableRows();
-  drawChart();
-</script>
-
 </body>
 </html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Chronologie – Van Rome naar de middeleeuwen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    header {
+      padding: 1.5rem 1rem 1.1rem 1rem;
+      background: linear-gradient(135deg, #111827, #1f2937);
+      color: white;
+    }
+
+    header h1 {
+      margin: 0 0 .4rem 0;
+      font-size: 1.7rem;
+    }
+
+    header p {
+      margin: 0;
+      font-size: .95rem;
+      max-width: 900px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.3rem 1rem 2rem 1rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: .9rem;
+      padding: 1rem 1.1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,.06);
+      border: 1px solid #e5e7eb;
+      margin-bottom: 1rem;
+      font-size: .9rem;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+
+    .intro ul {
+      margin-top: .3rem;
+      padding-left: 1.1rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .timeline-list {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      margin-top: .5rem;
+    }
+
+    .timeline-card {
+      background: #f9fafb;
+      border-radius: .7rem;
+      border: 1px solid #e5e7eb;
+      padding: .6rem .7rem;
+      display: flex;
+      gap: .6rem;
+      align-items: flex-start;
+    }
+
+    .timeline-index {
+      font-weight: 600;
+      font-size: .85rem;
+      color: #4b5563;
+      width: 4.5rem;   /* breder voor 'Kaartje 7' */
+      flex-shrink: 0;
+    }
+
+    .timeline-text {
+      flex: 1;
+      font-size: .9rem;
+      color: #111827;
+    }
+
+    .timeline-controls {
+      display: flex;
+      flex-direction: column;
+      gap: .2rem;
+      flex-shrink: 0;
+    }
+
+    .btn-small {
+      border-radius: .4rem;
+      border: 1px solid #d1d5db;
+      padding: .15rem .4rem;
+      background: white;
+      cursor: pointer;
+      font-size: .8rem;
+    }
+
+    .btn-small:hover {
+      background: #e5e7eb;
+    }
+
+    .hint {
+      font-size: .78rem;
+      color: #6b7280;
+      margin-top: .3rem;
+    }
+
+    .field-label {
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: #6b7280;
+      margin-bottom: .1rem;
+      font-weight: 600;
+    }
+
+    select, textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: .9rem;
+      border-radius: .5rem;
+      border: 1px solid #cbd5e1;
+      padding: .4rem .5rem;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .radio-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .7rem;
+      font-size: .85rem;
+      margin: .2rem 0 .4rem 0;
+    }
+
+    .collect-block h2 {
+      margin-top: 0;
+      font-size: 1.05rem;
+    }
+
+    .btn-collect {
+      border-radius: 999px;
+      border: none;
+      padding: .5rem 1.2rem;
+      background: #111827;
+      color: white;
+      font-size: .9rem;
+      cursor: pointer;
+      margin-bottom: .6rem;
+    }
+
+    .btn-collect:hover {
+      filter: brightness(1.05);
+    }
+
+    #allAnswers {
+      width: 100%;
+      min-height: 180px;
+      font-family: inherit;
+      font-size: .9rem;
+      border-radius: .5rem;
+      border: 1px solid #cbd5e1;
+      padding: .4rem .5rem;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+
+    .small-note {
+      font-size: .8rem;
+      color: #6b7280;
+      margin-top: .3rem;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Chronologie – Van Rome naar de middeleeuwen</h1>
+  <p>
+    Zet gebeurtenissen rond het einde van het Romeinse Rijk in de juiste volgorde en bedenk of het vooral gaat
+    om politieke of economische veranderingen.
+  </p>
+</header>
+
+<main>
+  <section class="card intro">
+    <h2>Opdracht (in tweetallen)</h2>
+    <ul>
+      <li>Zet de kaartjes hieronder in de <strong>juiste volgorde in de tijd</strong>.</li>
+      <li>Bovenaan staat de <strong>eerste</strong> gebeurtenis, onderaan de <strong>laatste</strong>.</li>
+      <li>Kies <strong>één gebeurtenis</strong> en geef aan: is dat vooral een politieke, economische of sociale verandering?</li>
+      <li>Leg in één of twee zinnen uit waarom je dat vindt.</li>
+    </ul>
+    <p class="small-note">
+      Tip: als je het echt niet meer weet, mag je even terugkijken in je boek. Probeer eerst uit je hoofd.
+    </p>
+  </section>
+
+  <section class="layout">
+    <!-- Linkerzijde: kaartjes ordenen -->
+    <article class="card">
+      <h2>1. Zet de kaartjes in volgorde</h2>
+      <p>
+        Gebruik de pijltjes bij elk kaartje om het naar boven of naar beneden te verplaatsen.
+        <strong>Bovenaan = eerste gebeurtenis, onderaan = laatste.</strong>
+      </p>
+
+      <div id="timelineCards" class="timeline-list">
+        <!-- Kaartjes worden door JavaScript ingevuld -->
+      </div>
+
+      <p class="hint">
+        Een goede tijdlijn laat zien dat het einde van het Romeinse Rijk geen één moment is, maar een proces met
+        oorzaken en gevolgen.
+      </p>
+    </article>
+
+    <!-- Rechterzijde: jaartallen + soort verandering -->
+    <article class="card">
+      <h2>2. Jaartallen en soort verandering</h2>
+
+      <div style="margin-bottom:.8rem;">
+        <div class="field-label">Schrijf bij minstens twee kaartjes een jaartal</div>
+        <p style="margin:0 0 .25rem 0;">
+          In de klas teken je normaal een tijdlijn op papier. Schrijf hier twee voorbeelden van kaartjes met jaartal.
+        </p>
+        <textarea id="jaartallen" placeholder="Voorbeeld: 476 – In 476 wordt de laatste West-Romeinse keizer in het westen afgezet."></textarea>
+      </div>
+
+      <div style="margin-bottom:.8rem;">
+        <div class="field-label">Kies één kaartje als voorbeeld-gebeurtenis</div>
+        <select id="focusEvent">
+          <!-- opties worden met JavaScript gevuld -->
+        </select>
+      </div>
+
+      <div>
+        <div class="field-label">Is dit vooral politiek, economisch of sociaal?</div>
+        <div class="radio-row">
+          <label><input type="radio" name="changeType" value="politiek"> Politieke verandering (macht / bestuur)</label>
+          <label><input type="radio" name="changeType" value="economisch"> Economische verandering (geld / handel / werk)</label>
+          <label><input type="radio" name="changeType" value="sociaal"> Sociale verandering (samenleving / groepen mensen)</label>
+        </div>
+        <textarea id="uitleg" placeholder="Leg in 1–2 zinnen uit waarom dit vooral een politieke, economische of sociale verandering is."></textarea>
+        <p class="hint">
+          Voor snelle denkers: kies nog een tweede kaartje en bedenk een gevolg, bijvoorbeeld: “Gevolg: mensen gaan leven op een domein.”
+        </p>
+      </div>
+    </article>
+  </section>
+
+  <!-- VERZAMELVELD -->
+  <section class="card collect-block">
+    <h2>Verzamel en kopieer alle antwoorden</h2>
+    <p style="font-size:.9rem;">
+      Klik op de knop om de volgorde van de kaartjes en jullie uitleg te verzamelen in één tekstvak. Kopieer die tekst
+      en plak hem in Magister / Teams / een e-mail naar de docent.
+    </p>
+    <button class="btn-collect" id="collectButton">Verzamel antwoorden</button>
+    <textarea id="allAnswers" placeholder="Hier verschijnen alle antwoorden van jullie groep als je op de knop hierboven klikt."></textarea>
+    <p class="hint">
+      Selecteer alles (Ctrl+A of cmd+A) en kopieer (Ctrl+C of cmd+C).
+    </p>
+  </section>
+</main>
+
+<script>
+  // Kaartjes met gebeurtenissen rond het einde van het Romeinse Rijk
+  const events = [
+    {
+      id: 1,
+      text: "Het Romeinse Rijk is heel groot en moeilijk te besturen."
+    },
+    {
+      id: 2,
+      text: "Het leger wordt te duur en soldaten zijn minder betrouwbaar."
+    },
+    {
+      id: 3,
+      text: "Er worden minder belastingen betaald aan de keizer."
+    },
+    {
+      id: 4,
+      text: "Volken van buiten vallen het rijk binnen."
+    },
+    {
+      id: 5,
+      text: "Steden en handel gaan achteruit."
+    },
+    {
+      id: 6,
+      text: "In 476 wordt de laatste West-Romeinse keizer in het westen afgezet."
+    },
+    {
+      id: 7,
+      text: "In Europa ontstaan nieuwe koninkrijken, zoals dat van de Franken."
+    }
+  ];
+
+  // huidige volgorde van kaartjes (array met ids)
+  let timelineOrder = [];
+
+  // mapping van interne id -> willekeurig getoonde kaartnummer
+  let displayNumbers = {};
+
+  const timelineContainer = document.getElementById("timelineCards");
+  const focusSelect = document.getElementById("focusEvent");
+
+  function shuffle(array) {
+    const arr = array.slice();
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  // Wijs willekeurige kaartnummers toe voor weergave
+  function assignDisplayNumbers() {
+    const ids = events.map(e => e.id);          // bijv. [1,2,3,4,5,6,7]
+    const nums = shuffle(ids);                 // willekeurige volgorde van 1 t/m 7
+    displayNumbers = {};
+    events.forEach((ev, index) => {
+      displayNumbers[ev.id] = nums[index];     // elk event krijgt een random kaartnummer
+    });
+  }
+
+  function renderTimeline() {
+    timelineContainer.innerHTML = "";
+    timelineOrder.forEach((id, index) => {
+      const ev = events.find(e => e.id === id);
+      const card = document.createElement("div");
+      card.className = "timeline-card";
+
+      const idx = document.createElement("div");
+      idx.className = "timeline-index";
+      // Toon het willekeurige kaartnummer (alleen referentie, zegt niets over goede volgorde)
+      idx.textContent = "Kaartje " + displayNumbers[ev.id];
+      card.appendChild(idx);
+
+      const textDiv = document.createElement("div");
+      textDiv.className = "timeline-text";
+      textDiv.textContent = ev.text;
+      card.appendChild(textDiv);
+
+      const controls = document.createElement("div");
+      controls.className = "timeline-controls";
+
+      const upBtn = document.createElement("button");
+      upBtn.className = "btn-small";
+      upBtn.textContent = "↑";
+      upBtn.title = "Omhoog";
+      upBtn.addEventListener("click", () => moveCard(index, -1));
+
+      const downBtn = document.createElement("button");
+      downBtn.className = "btn-small";
+      downBtn.textContent = "↓";
+      downBtn.title = "Omlaag";
+      downBtn.addEventListener("click", () => moveCard(index, 1));
+
+      controls.appendChild(upBtn);
+      controls.appendChild(downBtn);
+      card.appendChild(controls);
+
+      timelineContainer.appendChild(card);
+    });
+  }
+
+  function moveCard(index, direction) {
+    const newIndex = index + direction;
+    if (newIndex < 0 || newIndex >= timelineOrder.length) return;
+    const copy = timelineOrder.slice();
+    const temp = copy[index];
+    copy[index] = copy[newIndex];
+    copy[newIndex] = temp;
+    timelineOrder = copy;
+    renderTimeline();
+  }
+
+  function fillFocusSelect() {
+    focusSelect.innerHTML = "";
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "– kies een kaartje –";
+    focusSelect.appendChild(placeholder);
+
+    events.forEach(ev => {
+      const opt = document.createElement("option");
+      opt.value = ev.id;
+      const shortText = ev.text.length > 60 ? ev.text.slice(0, 60) + "..." : ev.text;
+      opt.textContent = `Kaartje ${displayNumbers[ev.id]} – ${shortText}`;
+      focusSelect.appendChild(opt);
+    });
+  }
+
+  function collectAnswers() {
+    const parts = [];
+
+    parts.push("=== Chronologie – Van Rome naar de middeleeuwen ===");
+    parts.push("");
+
+    // Volgorde kaartjes
+    parts.push("Volgorde van de kaartjes (1 = eerste, 7 = laatste):");
+    timelineOrder.forEach((id, index) => {
+      const ev = events.find(e => e.id === id);
+      parts.push(`${index + 1}. (Kaartje ${displayNumbers[ev.id]}) ${ev.text}`);
+    });
+    parts.push("");
+
+    // Jaartallen
+    const jaartallenEl = document.getElementById("jaartallen");
+    const jaartallenText = jaartallenEl ? jaartallenEl.value.trim() : "";
+    parts.push("Voorbeelden met jaartallen op de tijdlijn:");
+    parts.push(jaartallenText || "[geen jaartallen ingevuld]");
+    parts.push("");
+
+    // Focus-gebeurtenis + soort verandering
+    const focusId = parseInt(focusSelect.value, 10);
+    const focusEvent = events.find(e => e.id === focusId);
+    let changeType = "";
+    const selectedChange = document.querySelector('input[name="changeType"]:checked');
+    if (selectedChange) changeType = selectedChange.value;
+
+    const uitlegEl = document.getElementById("uitleg");
+    const uitlegText = uitlegEl ? uitlegEl.value.trim() : "";
+
+    parts.push("Gekozen voorbeeld-gebeurtenis:");
+    if (focusEvent) {
+      parts.push(`Kaartje ${displayNumbers[focusEvent.id]}: ${focusEvent.text}`);
+    } else {
+      parts.push("[geen kaartje gekozen]");
+    }
+    parts.push("");
+
+    parts.push("Soort verandering (politiek / economisch / sociaal):");
+    parts.push(changeType || "[geen keuze gemaakt]");
+    parts.push("");
+
+    parts.push("Uitleg van het groepje:");
+    parts.push(uitlegText || "[geen uitleg ingevuld]");
+    parts.push("");
+
+    const allText = parts.join("\n");
+    const output = document.getElementById("allAnswers");
+    output.value = allText;
+    output.focus();
+    output.select();
+  }
+
+  document.getElementById("collectButton").addEventListener("click", collectAnswers);
+
+  // Start: willekeurige kaartnummers + kaartjes in willekeurige volgorde
+  assignDisplayNumbers();
+  timelineOrder = shuffle(events.map(e => e.id));
+  renderTimeline();
+  fillFocusSelect();
+</script>
+</body>
+</html>
